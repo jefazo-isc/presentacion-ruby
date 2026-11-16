@@ -1070,6 +1070,36 @@ HTML_PAGE = <<~'HTML'
           return;
         }
 
+        if (s.is_section_intro) {
+          const topicsHtml = (s.topics || []).map((t, i) => `
+            <div class="feature-card" style="animation-delay:${(i + 1) * 80}ms;padding:18px 22px;">
+              <span class="feature-num">Tema 0${i + 1}</span>
+              <div class="feature-title" style="font-size:20px;line-height:1.35;">${escapeHtml(t)}</div>
+            </div>
+          `).join('');
+          container.innerHTML = `
+            <div class="slide-enter" style="display:flex;flex-direction:column;height:100%;justify-content:center;gap:26px;">
+              <div class="slide-top" style="position:absolute;top:0;left:0;right:0;">
+                <div class="top-left">
+                  <img src="/img/ruby.png" class="mini-logo" alt="Ruby" />
+                  <span class="badge">${escapeHtml(s.alumno.toUpperCase())}</span>
+                </div>
+                <span class="slide-num">${idx + 1} / ${slides.length}</span>
+              </div>
+              <div style="text-align:center;margin-top:20px;">
+                <div style="display:inline-block;padding:6px 18px;border-radius:999px;background:var(--ruby-soft);border:1px solid rgba(255,77,109,0.45);color:#fda4af;font-weight:800;font-size:14px;letter-spacing:1.2px;margin-bottom:14px;">
+                  ${escapeHtml(s.alumno.toUpperCase())}
+                </div>
+                <h1 class="slide-title" style="font-size:48px;text-align:center;">${escapeHtml(s.title)}</h1>
+              </div>
+              <div class="cards-grid-3" style="height:auto;max-height:240px;">
+                ${topicsHtml}
+              </div>
+            </div>
+          `;
+          return;
+        }
+
         const alumnoMatch = s.alumno.match(/Alumno \d+/i);
         const badgeText = alumnoMatch ? alumnoMatch[0].toUpperCase() : 'CIERRE';
 
@@ -1141,7 +1171,7 @@ HTML_PAGE = <<~'HTML'
                 <img src="/img/ruby.png" class="mini-logo" alt="Ruby" />
                 <span class="badge">${escapeHtml(badgeText)}</span>
               </div>
-              <span class="slide-num">${s.slide} / ${slides.length}</span>
+              <span class="slide-num">${idx + 1} / ${slides.length}</span>
             </div>
 
             <div class="title-row">

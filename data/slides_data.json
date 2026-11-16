@@ -82,6 +82,23 @@
     "table": null
   },
   {
+    "slide": 101,
+    "is_section_intro": true,
+    "title": "Introducción, historia y origen",
+    "alumno": "Alumno 1 · Bloque 1",
+    "header": "Presentación del Bloque 1",
+    "duration_sec": 15,
+    "ppt_lines": [],
+    "dialogos": [],
+    "code": null,
+    "table": null,
+    "topics": [
+      "¿Qué es Ruby? (Todo es objeto)",
+      "Origen con Matz y evolución hasta Ruby 4.0",
+      "Objetivos de diseño e importancia"
+    ]
+  },
+  {
     "slide": 4,
     "title": "¿Qué es Ruby?",
     "alumno": "Alumno 1 · Introducción, historia y origen (5:00)",
@@ -174,6 +191,23 @@
     "code": null,
     "default_stdin": "",
     "table": null
+  },
+  {
+    "slide": 102,
+    "is_section_intro": true,
+    "title": "Filosofía y características",
+    "alumno": "Alumno 2 · Bloque 2",
+    "header": "Presentación del Bloque 2",
+    "duration_sec": 15,
+    "ppt_lines": [],
+    "dialogos": [],
+    "code": null,
+    "table": null,
+    "topics": [
+      "Filosofía: principio de menor sorpresa",
+      "Arquitectura de traducción y ejecución (AST → YARV → YJIT)",
+      "Comparativa técnica frente a Python y Java"
+    ]
   },
   {
     "slide": 7,
@@ -297,6 +331,23 @@
     }
   },
   {
+    "slide": 103,
+    "is_section_intro": true,
+    "title": "Sintaxis y fundamentos",
+    "alumno": "Alumno 3 · Bloque 3",
+    "header": "Presentación del Bloque 3",
+    "duration_sec": 15,
+    "ppt_lines": [],
+    "dialogos": [],
+    "code": null,
+    "table": null,
+    "topics": [
+      "Variables, constantes, tipos y operadores",
+      "Cadenas, arreglos y hashes con símbolos",
+      "Entrada y salida estándar (gets, puts, format)"
+    ]
+  },
+  {
     "slide": 10,
     "title": "Variables, tipos y operadores",
     "alumno": "Alumno 3 · Sintaxis y fundamentos (6:00)",
@@ -395,6 +446,23 @@
     "code": "print \"¿Cómo te llamas? \"\nnombre = gets.chomp\nprint \"¿Edad? \"\nedad = gets.to_i\nputs \"Hola, #{nombre}.\"\nputs \"El próximo año tendrás #{edad + 1}.\"\nputs format(\"Promedio: %.2f\", (8 + 9 + 10) / 3.0)",
     "default_stdin": "Yahir\n21\n",
     "table": null
+  },
+  {
+    "slide": 104,
+    "is_section_intro": true,
+    "title": "Control y programación orientada a objetos",
+    "alumno": "Alumno 4 · Bloque 4",
+    "header": "Presentación del Bloque 4",
+    "duration_sec": 15,
+    "ppt_lines": [],
+    "dialogos": [],
+    "code": null,
+    "table": null,
+    "topics": [
+      "Condicionales, ciclos y rangos",
+      "Métodos, retorno implícito, bloques y yield",
+      "Clases, objetos, herencia y encapsulamiento"
+    ]
   },
   {
     "slide": 13,
@@ -544,6 +612,23 @@
     "table": null
   },
   {
+    "slide": 105,
+    "is_section_intro": true,
+    "title": "Ecosistema y aplicaciones",
+    "alumno": "Alumno 5 · Bloque 5",
+    "header": "Presentación del Bloque 5",
+    "duration_sec": 15,
+    "ppt_lines": [],
+    "dialogos": [],
+    "code": null,
+    "table": null,
+    "topics": [
+      "RubyGems, Bundler y herramientas CLI",
+      "Ruby on Rails y arquitectura MVC",
+      "Empresas reales y automatización de scripts"
+    ]
+  },
+  {
     "slide": 17,
     "title": "RubyGems y herramientas",
     "alumno": "Alumno 5 · Ecosistema y aplicaciones (6:00)",
@@ -641,6 +726,23 @@
     "code": "require \"fileutils\"\nrequire \"tmpdir\"\n\nDir.mktmpdir do |dir|\n  Dir.chdir(dir) do\n    File.write(\"notas.txt\", \"hola\")\n    File.write(\"datos.txt\", \"ruby\")\n    FileUtils.mkdir_p(\"backup\")\n    Dir.glob(\"*.txt\").each do |f|\n      FileUtils.mv(f, \"backup/#{f}\")\n      puts \"Respaldado -> backup/#{f}\"\n    end\n  end\nend",
     "default_stdin": "",
     "table": null
+  },
+  {
+    "slide": 106,
+    "is_section_intro": true,
+    "title": "Evaluación y conclusiones",
+    "alumno": "Alumno 6 · Bloque 6",
+    "header": "Presentación del Bloque 6",
+    "duration_sec": 15,
+    "ppt_lines": [],
+    "dialogos": [],
+    "code": null,
+    "table": null,
+    "topics": [
+      "Ventajas, límites, GVL y cuándo usar o no Ruby",
+      "Comparación práctica de uso, sintaxis y rendimiento",
+      "Instalación, vigencia (Ruby 4.0) y conclusiones"
+    ]
   },
   {
     "slide": 20,
