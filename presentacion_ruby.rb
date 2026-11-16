@@ -16,14 +16,15 @@ require "timeout"
 require "erb"
 
 PORT = (ENV["PORT"] || 4567).to_i
-DATA_FILE = File.join(__dir__, "slides_data.json")
+DATA_FILE = File.join(__dir__, "data", "slides_data.json")
 SLIDES = JSON.parse(File.read(DATA_FILE, encoding: "UTF-8"))
 
+IMG_DIR = File.join(__dir__, "assets", "img")
 ALLOWED_IMAGES = {
-  "ruby.png" => File.join(__dir__, "ruby.png"),
-  "matz.png" => File.join(__dir__, "matz.png"),
-  "rubygems.png" => File.join(__dir__, "rubygems.png"),
-  "Ruby-on-Rails-Logo.png" => File.join(__dir__, "Ruby-on-Rails-Logo.png")
+  "ruby.png" => File.join(IMG_DIR, "ruby.png"),
+  "matz.png" => File.join(IMG_DIR, "matz.png"),
+  "rubygems.png" => File.join(IMG_DIR, "rubygems.png"),
+  "Ruby-on-Rails-Logo.png" => File.join(IMG_DIR, "Ruby-on-Rails-Logo.png")
 }.freeze
 
 HTML_PAGE = <<~'HTML'

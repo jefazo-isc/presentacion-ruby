@@ -2,6 +2,17 @@
 
 Presentación interactiva de **25 diapositivas** sobre el lenguaje de programación **Ruby**, programada en **Ruby** (`WEBrick`) con ejecución de ejemplos en vivo y animaciones 16:9.
 
+## Estructura del Proyecto
+```text
+.
+├── presentacion_ruby.rb          # Servidor WEBrick y aplicación web 16:9
+├── data/
+│   └── slides_data.json          # Contenido y diálogos de las 25 diapositivas
+├── assets/
+│   └── img/                      # Recursos gráficos (ruby, matz, rubygems, rails)
+└── docs/                         # Guion de exposición (.docx) y PPTX base
+```
+
 ## Requisitos
 - Ruby `3.x` (probado en Ruby `3.3.13`).
 
