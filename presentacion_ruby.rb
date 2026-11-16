@@ -723,7 +723,7 @@ HTML_PAGE = <<~'HTML'
       async function init() {
         scaleSlide();
         initParticles();
-        const res = await fetch('/api/slides');
+        const res = await fetch('data/slides_data.json');
         slides = await res.json();
 
         document.addEventListener('keydown', (e) => {
@@ -831,14 +831,18 @@ HTML_PAGE = <<~'HTML'
         const statusEl = document.getElementById('execBadge');
         if (!outEl) return;
 
-        const res = await fetch('/api/run', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code: s.code, stdin: s.default_stdin || '' })
-        });
+        let data = null;
+        try {
+          const res = await fetch('api/run', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code: s.code, stdin: s.default_stdin || '' })
+          });
+          if (res.ok) data = await res.json();
+        } catch (_e) {}
+        if (!data && s.expected_output) data = s.expected_output;
+        if (!data) data = { stdout: '', stderr: 'Sin intérprete local', ms: 0 };
         if (token !== runToken) return;
-
-        const data = await res.json();
         const hasErr = Boolean(data.stderr && data.stderr.trim());
         const fullText = hasErr
           ? ((data.stdout ? data.stdout + '\n' : '') + data.stderr)
@@ -998,7 +1002,7 @@ HTML_PAGE = <<~'HTML'
                 <ul class="points-list" style="gap:7px;">${tools}</ul>
               </div>
               <div class="media-card">
-                <img src="/img/rubygems.png" class="logo-transparent" alt="RubyGems" />
+                <img src="assets/img/rubygems.png" class="logo-transparent" alt="RubyGems" />
                 <div class="media-caption">RubyGems &amp; Bundler</div>
                 <div class="media-sub">Ecosistema modular de librerías (.gem)</div>
               </div>
@@ -1020,7 +1024,7 @@ HTML_PAGE = <<~'HTML'
               <div class="slide-body with-media" style="flex:1;">
                 <div class="points-card"><ul class="points-list">${rest}</ul></div>
                 <div class="media-card">
-                  <img src="/img/Ruby-on-Rails-Logo.png" class="logo-transparent" alt="Ruby on Rails" />
+                  <img src="assets/img/Ruby-on-Rails-Logo.png" class="logo-transparent" alt="Ruby on Rails" />
                   <div class="media-caption">Arquitectura MVC</div>
                   <div class="media-sub">Convención sobre configuración</div>
                 </div>
@@ -1063,7 +1067,7 @@ HTML_PAGE = <<~'HTML'
             <div class="intro-stage slide-enter">
               <div class="flash-burst">${buildInterleavedFlashSvg(24, 145, 325, 3, '12 10')}</div>
               <div class="flash-burst-inner">${buildInterleavedFlashSvg(18, 125, 250, 2, '6 14')}</div>
-              <img src="/img/ruby.png" class="intro-gem-big" alt="Ruby" />
+              <img src="assets/img/ruby.png" class="intro-gem-big" alt="Ruby" />
               <h1 class="intro-word">Ruby</h1>
             </div>
           `;
@@ -1081,7 +1085,7 @@ HTML_PAGE = <<~'HTML'
             <div class="slide-enter" style="display:flex;flex-direction:column;height:100%;justify-content:center;gap:26px;">
               <div class="slide-top" style="position:absolute;top:0;left:0;right:0;">
                 <div class="top-left">
-                  <img src="/img/ruby.png" class="mini-logo" alt="Ruby" />
+                  <img src="assets/img/ruby.png" class="mini-logo" alt="Ruby" />
                   <span class="badge">${escapeHtml(s.alumno.toUpperCase())}</span>
                 </div>
                 <span class="slide-num">${idx + 1} / ${slides.length}</span>
@@ -1127,7 +1131,7 @@ HTML_PAGE = <<~'HTML'
               <thead>
                 <tr>${s.table.headers.map((h, ci) => `
                   <th class="${ci === 1 ? 'ruby-col' : ''}">
-                    ${ci === 1 ? `<div class="th-flex"><img src="/img/ruby.png" class="th-icon" alt="Ruby"/><span>${escapeHtml(h)}</span></div>` : escapeHtml(h)}
+                    ${ci === 1 ? `<div class="th-flex"><img src="assets/img/ruby.png" class="th-icon" alt="Ruby"/><span>${escapeHtml(h)}</span></div>` : escapeHtml(h)}
                   </th>
                 `).join('')}</tr>
               </thead>
@@ -1156,7 +1160,7 @@ HTML_PAGE = <<~'HTML'
         // En Slide 4 incluimos la foto de Matz en la parte izquierda junto a sus viñetas
         const matzHeader = (s.slide === 4) ? `
           <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px;padding:10px;background:rgba(225,29,72,0.10);border:1px solid rgba(255,77,109,0.3);border-radius:12px;">
-            <img src="/img/matz.png" style="width:68px;height:68px;border-radius:50%;object-fit:cover;border:2px solid #ff4d6d;" alt="Matz" />
+            <img src="assets/img/matz.png" style="width:68px;height:68px;border-radius:50%;object-fit:cover;border:2px solid #ff4d6d;" alt="Matz" />
             <div>
               <div style="font-weight:700;font-size:16px;color:#fff;">Yukihiro “Matz” Matsumoto</div>
               <div style="font-size:13px;color:#cbd5e1;">Creador de Ruby (Japón, 1995)</div>
@@ -1168,14 +1172,14 @@ HTML_PAGE = <<~'HTML'
           <div class="slide-enter" style="display:flex;flex-direction:column;height:100%;min-height:0;">
             <div class="slide-top ${isIntro ? 'intro-reveal' : ''}">
               <div class="top-left">
-                <img src="/img/ruby.png" class="mini-logo" alt="Ruby" />
+                <img src="assets/img/ruby.png" class="mini-logo" alt="Ruby" />
                 <span class="badge">${escapeHtml(badgeText)}</span>
               </div>
               <span class="slide-num">${idx + 1} / ${slides.length}</span>
             </div>
 
             <div class="title-row">
-              ${isHero ? `<img src="/img/ruby.png" class="hero-logo ${isIntro ? 'intro-gem' : ''}" alt="Ruby" />` : ''}
+              ${isHero ? `<img src="assets/img/ruby.png" class="hero-logo ${isIntro ? 'intro-gem' : ''}" alt="Ruby" />` : ''}
               <h1 class="slide-title ${isIntro ? 'intro-reveal' : ''}">${escapeHtml(s.title)}</h1>
             </div>
 
@@ -1214,6 +1218,13 @@ HTML
 
 RENDERED_HTML = ERB.new(HTML_PAGE).result(binding)
 
+if ARGV.include?("--build-static")
+  out_html = File.join(__dir__, "index.html")
+  File.write(out_html, RENDERED_HTML, encoding: "UTF-8")
+  puts "✅ index.html generado para GitHub Pages (#{out_html})"
+  exit 0
+end
+
 server = WEBrick::HTTPServer.new(
   Port: PORT,
   Logger: WEBrick::Log.new($stderr, WEBrick::Log::WARN),
@@ -1225,12 +1236,14 @@ server.mount_proc "/" do |_req, res|
   res.body = RENDERED_HTML
 end
 
-server.mount_proc "/api/slides" do |_req, res|
+slides_proc = proc do |_req, res|
   res.content_type = "application/json; charset=utf-8"
   res.body = JSON.generate(SLIDES)
 end
+server.mount_proc "/api/slides", &slides_proc
+server.mount_proc "/data/slides_data.json", &slides_proc
 
-server.mount_proc "/img" do |req, res|
+img_proc = proc do |req, res|
   name = File.basename(req.path)
   path = ALLOWED_IMAGES[name]
   if path && File.exist?(path)
@@ -1241,6 +1254,8 @@ server.mount_proc "/img" do |req, res|
     res.body = "Not found"
   end
 end
+server.mount_proc "/img", &img_proc
+server.mount_proc "/assets/img", &img_proc
 
 server.mount_proc "/api/run" do |req, res|
   res.content_type = "application/json; charset=utf-8"

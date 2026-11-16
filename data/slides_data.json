@@ -17,7 +17,13 @@
     ],
     "code": "puts \"¡Hola, Ruby!\"",
     "default_stdin": "",
-    "table": null
+    "table": null,
+    "expected_output": {
+      "stdout": "¡Hola, Ruby!\n",
+      "stderr": "",
+      "ms": 146.06,
+      "ruby_version": "3.3.13"
+    }
   },
   {
     "slide": 2,
@@ -88,8 +94,12 @@
     "alumno": "Alumno 1 · Bloque 1",
     "header": "Presentación del Bloque 1",
     "duration_sec": 15,
-    "ppt_lines": [],
-    "dialogos": [],
+    "ppt_lines": [
+
+    ],
+    "dialogos": [
+
+    ],
     "code": null,
     "table": null,
     "topics": [
@@ -126,7 +136,13 @@
     ],
     "code": "# Todo es un objeto\nputs 5.class         # Integer\nputs \"Ruby\".length   # 4\nputs nil.nil?        # true\n3.times { puts \"¡Hola!\" }",
     "default_stdin": "",
-    "table": null
+    "table": null,
+    "expected_output": {
+      "stdout": "Integer\n4\ntrue\n¡Hola!\n¡Hola!\n¡Hola!\n",
+      "stderr": "",
+      "ms": 76.52,
+      "ruby_version": "3.3.13"
+    }
   },
   {
     "slide": 5,
@@ -199,8 +215,12 @@
     "alumno": "Alumno 2 · Bloque 2",
     "header": "Presentación del Bloque 2",
     "duration_sec": 15,
-    "ppt_lines": [],
-    "dialogos": [],
+    "ppt_lines": [
+
+    ],
+    "dialogos": [
+
+    ],
     "code": null,
     "table": null,
     "topics": [
@@ -237,7 +257,13 @@
     ],
     "code": "# Tres formas de imprimir 1, 2 y 3\n[1, 2, 3].each { |n| puts n }\nfor n in [1, 2, 3] do puts n end\n1.upto(3) { |n| puts n }",
     "default_stdin": "",
-    "table": null
+    "table": null,
+    "expected_output": {
+      "stdout": "1\n2\n3\n1\n2\n3\n1\n2\n3\n",
+      "stderr": "",
+      "ms": 72.39,
+      "ruby_version": "3.3.13"
+    }
   },
   {
     "slide": 8,
@@ -337,8 +363,12 @@
     "alumno": "Alumno 3 · Bloque 3",
     "header": "Presentación del Bloque 3",
     "duration_sec": 15,
-    "ppt_lines": [],
-    "dialogos": [],
+    "ppt_lines": [
+
+    ],
+    "dialogos": [
+
+    ],
     "code": null,
     "table": null,
     "topics": [
@@ -378,7 +408,13 @@
     ],
     "code": "nombre = \"Ana\"       # variable local\nPI = 3.14159         # constante\nedad = 20            # Integer\nprecio = 19.99       # Float\nactivo = true        # booleano\nputs edad / 3        # 6 (enteros)\nputs edad / 3.0      # 6.666666666666667\nputs 2 ** 10         # 1024\nputs edad.class      # Integer",
     "default_stdin": "",
-    "table": null
+    "table": null,
+    "expected_output": {
+      "stdout": "6\n6.666666666666667\n1024\nInteger\n",
+      "stderr": "",
+      "ms": 73.01,
+      "ruby_version": "3.3.13"
+    }
   },
   {
     "slide": 11,
@@ -413,7 +449,13 @@
     ],
     "code": "nombre = \"Ana\"\nputs \"Hola, #{nombre}\".upcase  # HOLA, ANA\n\nfrutas = [\"uva\", \"pera\", \"kiwi\"]\nfrutas << \"mango\"\nputs frutas.map(&:upcase).inspect\n\nalumno = { nombre: \"Ana\", edad: 20 }\nputs alumno[:nombre]           # Ana\nalumno[:carrera] = \"ISC\"\nalumno.each { |k, v| puts \"#{k}: #{v}\" }",
     "default_stdin": "",
-    "table": null
+    "table": null,
+    "expected_output": {
+      "stdout": "HOLA, ANA\n[\"UVA\", \"PERA\", \"KIWI\", \"MANGO\"]\nAna\nnombre: Ana\nedad: 20\ncarrera: ISC\n",
+      "stderr": "",
+      "ms": 71.0,
+      "ruby_version": "3.3.13"
+    }
   },
   {
     "slide": 12,
@@ -445,7 +487,13 @@
     ],
     "code": "print \"¿Cómo te llamas? \"\nnombre = gets.chomp\nprint \"¿Edad? \"\nedad = gets.to_i\nputs \"Hola, #{nombre}.\"\nputs \"El próximo año tendrás #{edad + 1}.\"\nputs format(\"Promedio: %.2f\", (8 + 9 + 10) / 3.0)",
     "default_stdin": "Yahir\n21\n",
-    "table": null
+    "table": null,
+    "expected_output": {
+      "stdout": "¿Cómo te llamas? ¿Edad? Hola, Yahir.\nEl próximo año tendrás 22.\nPromedio: 9.00\n",
+      "stderr": "",
+      "ms": 77.1,
+      "ruby_version": "3.3.13"
+    }
   },
   {
     "slide": 104,
@@ -454,8 +502,12 @@
     "alumno": "Alumno 4 · Bloque 4",
     "header": "Presentación del Bloque 4",
     "duration_sec": 15,
-    "ppt_lines": [],
-    "dialogos": [],
+    "ppt_lines": [
+
+    ],
+    "dialogos": [
+
+    ],
     "code": null,
     "table": null,
     "topics": [
@@ -501,7 +553,13 @@
     ],
     "code": "nota = 85\nif nota >= 90\n  puts \"Excelente\"\nelsif nota >= 70\n  puts \"Aprobado\"      # se imprime\nelse\n  puts \"Reprobado\"\nend\nputs \"Pasa\" unless nota < 70\n\n3.times { |i| puts \"Vuelta #{i}\" }\n(1..5).each { |n| puts n * n }\nc = 0\nc += 1 while c < 3\nputs c                  # 3",
     "default_stdin": "",
-    "table": null
+    "table": null,
+    "expected_output": {
+      "stdout": "Aprobado\nPasa\nVuelta 0\nVuelta 1\nVuelta 2\n1\n4\n9\n16\n25\n3\n",
+      "stderr": "",
+      "ms": 83.02,
+      "ruby_version": "3.3.13"
+    }
   },
   {
     "slide": 14,
@@ -534,7 +592,13 @@
     ],
     "code": "def area(base, altura = 1)\n  base * altura / 2.0\nend\nputs area(6, 4)      # 12.0\n\ndef repetir(veces)\n  veces.times { |i| yield i }\nend\nrepetir(3) { |n| puts \"Paso #{n}\" }",
     "default_stdin": "",
-    "table": null
+    "table": null,
+    "expected_output": {
+      "stdout": "12.0\nPaso 0\nPaso 1\nPaso 2\n",
+      "stderr": "",
+      "ms": 80.36,
+      "ruby_version": "3.3.13"
+    }
   },
   {
     "slide": 15,
@@ -570,7 +634,13 @@
     ],
     "code": "class Persona\n  attr_reader :nombre\n  def initialize(nombre, edad)\n    @nombre = nombre\n    @edad = edad\n  end\n  def presentarse\n    \"Soy #{@nombre}, tengo #{@edad} años\"\n  end\nend\n\nana = Persona.new(\"Ana\", 20)\nputs ana.presentarse",
     "default_stdin": "",
-    "table": null
+    "table": null,
+    "expected_output": {
+      "stdout": "Soy Ana, tengo 20 años\n",
+      "stderr": "",
+      "ms": 73.25,
+      "ruby_version": "3.3.13"
+    }
   },
   {
     "slide": 16,
@@ -609,7 +679,13 @@
     ],
     "code": "class Persona\n  attr_reader :nombre\n  def initialize(nombre, edad)\n    @nombre = nombre\n    @edad = edad\n  end\n  def presentarse\n    \"Soy #{@nombre}, tengo #{@edad} años\"\n  end\nend\n\nclass Estudiante < Persona\n  def initialize(nombre, edad, carrera)\n    super(nombre, edad)\n    @carrera = carrera\n  end\n  def presentarse\n    super + \" y estudio #{@carrera}\"\n  end\n  private\n  def secreto = \"uso interno\"\nend\n\ne = Estudiante.new(\"Luis\", 21, \"ISC\")\nputs e.presentarse",
     "default_stdin": "",
-    "table": null
+    "table": null,
+    "expected_output": {
+      "stdout": "Soy Luis, tengo 21 años y estudio ISC\n",
+      "stderr": "",
+      "ms": 76.19,
+      "ruby_version": "3.3.13"
+    }
   },
   {
     "slide": 105,
@@ -618,8 +694,12 @@
     "alumno": "Alumno 5 · Bloque 5",
     "header": "Presentación del Bloque 5",
     "duration_sec": 15,
-    "ppt_lines": [],
-    "dialogos": [],
+    "ppt_lines": [
+
+    ],
+    "dialogos": [
+
+    ],
     "code": null,
     "table": null,
     "topics": [
@@ -725,7 +805,13 @@
     ],
     "code": "require \"fileutils\"\nrequire \"tmpdir\"\n\nDir.mktmpdir do |dir|\n  Dir.chdir(dir) do\n    File.write(\"notas.txt\", \"hola\")\n    File.write(\"datos.txt\", \"ruby\")\n    FileUtils.mkdir_p(\"backup\")\n    Dir.glob(\"*.txt\").each do |f|\n      FileUtils.mv(f, \"backup/#{f}\")\n      puts \"Respaldado -> backup/#{f}\"\n    end\n  end\nend",
     "default_stdin": "",
-    "table": null
+    "table": null,
+    "expected_output": {
+      "stdout": "Respaldado -> backup/datos.txt\nRespaldado -> backup/notas.txt\n",
+      "stderr": "",
+      "ms": 104.47,
+      "ruby_version": "3.3.13"
+    }
   },
   {
     "slide": 106,
@@ -734,8 +820,12 @@
     "alumno": "Alumno 6 · Bloque 6",
     "header": "Presentación del Bloque 6",
     "duration_sec": 15,
-    "ppt_lines": [],
-    "dialogos": [],
+    "ppt_lines": [
+
+    ],
+    "dialogos": [
+
+    ],
     "code": null,
     "table": null,
     "topics": [
@@ -934,6 +1024,12 @@
     ],
     "code": "puts \"¡Gracias!\"",
     "default_stdin": "",
-    "table": null
+    "table": null,
+    "expected_output": {
+      "stdout": "¡Gracias!\n",
+      "stderr": "",
+      "ms": 113.5,
+      "ruby_version": "3.3.13"
+    }
   }
 ]
