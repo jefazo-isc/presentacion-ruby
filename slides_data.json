@@ -1,0 +1,843 @@
+[
+  {
+    "slide": 1,
+    "title": "Ruby",
+    "alumno": "Alumno 1 · Introducción, historia y origen (5:00)",
+    "header": "Diapositiva 1 · Portada (0:30)",
+    "duration_sec": 30,
+    "ppt_lines": [
+      "Ruby",
+      "Un lenguaje dinámico, orientado a objetos y expresivo",
+      "Ingeniería en Sistemas Computacionales",
+      "6 expositores · 35 minutos",
+      "puts \"¡Hola, Ruby!\""
+    ],
+    "dialogos": [
+      "Buenos días a todos. Somos el equipo que hoy les presentará un lenguaje de programación que lleva más de treinta años en uso y que sigue vigente: Ruby. Durante los próximos treinta y cinco minutos, seis compañeros recorreremos su historia, su filosofía, su sintaxis, la programación orientada a objetos, su ecosistema y, al final, una evaluación con conclusiones. Yo soy [nombre] y les presento la primera parte."
+    ],
+    "code": "puts \"¡Hola, Ruby!\"",
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 2,
+    "title": "Objetivos de aprendizaje",
+    "alumno": "Alumno 1 · Introducción, historia y origen (5:00)",
+    "header": "Diapositiva 2 · Objetivos de aprendizaje (0:30)",
+    "duration_sec": 30,
+    "ppt_lines": [
+      "Objetivos de aprendizaje",
+      "ALUMNO 1",
+      "1 · Comprender",
+      "El origen, la filosofía y las características de Ruby.",
+      "2 · Aplicar",
+      "Leer y escribir código básico: sintaxis, control y objetos.",
+      "3 · Distinguir",
+      "Ruby, Ruby on Rails y las herramientas del ecosistema.",
+      "4 · Evaluar",
+      "Ventajas, límites y vigencia frente a Python y Java.",
+      "2"
+    ],
+    "dialogos": [
+      "Al terminar esta exposición queremos que ustedes puedan hacer cuatro cosas. Primero, comprender el origen, la filosofía y las características de Ruby. Segundo, aplicar lo aprendido leyendo código básico: sintaxis, estructuras de control y objetos. Tercero, distinguir entre Ruby, Ruby on Rails y las herramientas de su ecosistema, algo que mucha gente confunde. Y cuarto, evaluar sus ventajas, sus límites y su vigencia frente a Python y Java."
+    ],
+    "code": null,
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 3,
+    "title": "Distribución de expositores",
+    "alumno": "Alumno 1 · Introducción, historia y origen (5:00)",
+    "header": "Diapositiva 3 · Distribución de expositores (0:30)",
+    "duration_sec": 30,
+    "ppt_lines": [
+      "Distribución de expositores",
+      "ALUMNO 1",
+      "ALUMNO 1 · 5 min",
+      "Introducción e historia",
+      "Qué es Ruby, creador y evolución",
+      "ALUMNO 2 · 6 min",
+      "Filosofía y características",
+      "Tipado, ejecución y comparación",
+      "ALUMNO 3 · 6 min",
+      "Sintaxis y fundamentos",
+      "Datos, cadenas, arreglos y E/S",
+      "ALUMNO 4 · 6 min",
+      "Control y objetos",
+      "Ciclos, métodos, clases y herencia",
+      "ALUMNO 5 · 6 min",
+      "Ecosistema y aplicaciones",
+      "RubyGems, Rails y empresas",
+      "ALUMNO 6 · 6 min",
+      "Evaluación y conclusiones",
+      "Ventajas, comparación y vigencia",
+      "Total: 5 + 6 + 6 + 6 + 6 + 6 = 35 minutos",
+      "3"
+    ],
+    "dialogos": [
+      "Así nos repartimos el tiempo. Yo presento la introducción y la historia durante cinco minutos. Después, el compañero 2 explicará la filosofía y las características; el 3, la sintaxis; el 4, las estructuras de control y la orientación a objetos; el 5, el ecosistema y las aplicaciones; y el 6, la evaluación y las conclusiones. Cada uno de ellos tiene seis minutos, y en total suman treinta y cinco. [Señalar la esquina superior derecha] En cada diapositiva verán una etiqueta con el número del alumno que está exponiendo."
+    ],
+    "code": null,
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 4,
+    "title": "¿Qué es Ruby?",
+    "alumno": "Alumno 1 · Introducción, historia y origen (5:00)",
+    "header": "Diapositiva 4 · ¿Qué es Ruby? (1:15)",
+    "duration_sec": 75,
+    "ppt_lines": [
+      "¿Qué es Ruby?",
+      "ALUMNO 1",
+      "Lenguaje interpretado, dinámico y de propósito general",
+      "Orientado a objetos: todo valor es un objeto",
+      "Creado por Yukihiro “Matz” Matsumoto (Japón)",
+      "Código abierto; primera versión pública en 1995",
+      "# Todo es un objeto",
+      "puts 5.class        # Integer",
+      "puts \"Ruby\".length  # 4",
+      "puts nil.nil?       # true",
+      "3.times { puts \"¡Hola!\" }",
+      "¿Qué demuestra?",
+      "Números, textos y nil responden a métodos: no existen valores “primitivos”.",
+      "4"
+    ],
+    "dialogos": [
+      "Empecemos por lo básico: ¿qué es Ruby? Es un lenguaje de programación interpretado, dinámico y de propósito general. Interpretado significa que un programa llamado intérprete ejecuta el código directamente. Dinámico significa que los tipos de datos se determinan mientras el programa se ejecuta. Y de propósito general, que sirve para sitios web, scripts, herramientas de línea de comandos y mucho más. Fue creado por Yukihiro Matsumoto, conocido como Matz, en Japón; es de código abierto y su primera versión pública apareció en 1995.",
+      "Su rasgo más distintivo es que todo es un objeto. [Señalar el código de la derecha] En la segunda línea, 5.class responde Integer: el número cinco es un objeto de la clase Integer. En la tercera, a la cadena “Ruby” le preguntamos su longitud con length y obtenemos 4. En la cuarta, incluso nil, que representa la ausencia de valor, responde a un método: nil.nil? devuelve true. Y en la última, el número 3 recibe el mensaje times, que repite el bloque tres veces e imprime ¡Hola! tres veces. En muchos lenguajes los números son tipos primitivos sin métodos; en Ruby no."
+    ],
+    "code": "# Todo es un objeto\nputs 5.class         # Integer\nputs \"Ruby\".length   # 4\nputs nil.nil?        # true\n3.times { puts \"¡Hola!\" }",
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 5,
+    "title": "Origen y evolución",
+    "alumno": "Alumno 1 · Introducción, historia y origen (5:00)",
+    "header": "Diapositiva 5 · Origen y evolución (1:30)",
+    "duration_sec": 90,
+    "ppt_lines": [
+      "Origen y evolución",
+      "ALUMNO 1",
+      "1993",
+      "Matz comienza a diseñar Ruby",
+      "1995",
+      "Primera versión pública (0.95)",
+      "1996",
+      "Ruby 1.0",
+      "2004",
+      "Rails, de David H. Hansson",
+      "2007",
+      "Ruby 1.9 con la máquina virtual YARV",
+      "2020",
+      "Ruby 3.0: Ractor y tipos con RBS",
+      "2025",
+      "Ruby 4.0 (25 de diciembre)",
+      "Meta “Ruby 3x3”",
+      "Ruby 3.0 buscaba ejecutar programas hasta tres veces más rápido que Ruby 2.0.",
+      "5"
+    ],
+    "dialogos": [
+      "[Recorrer la línea de tiempo de izquierda a derecha] Veamos cómo llegó Ruby hasta aquí. En 1993 Matz comenzó a diseñarlo, con la idea de crear un lenguaje agradable de usar que combinara lo mejor de otros que le gustaban. En 1995 publicó la primera versión pública, la 0.95, y en 1996 llegó Ruby 1.0.",
+      "Durante sus primeros años, Ruby se difundió sobre todo en Japón. El salto internacional llegó en 2004, cuando David Heinemeier Hansson, a partir de su trabajo en Basecamp, liberó un framework web llamado Ruby on Rails. Rails atrajo a muchísimos desarrolladores hacia Ruby.",
+      "En 2007 apareció Ruby 1.9, que incorporó YARV, la máquina virtual que hasta hoy ejecuta el código. En 2020 salió Ruby 3.0, con Ractor, para ejecutar código en paralelo, y RBS, para describir tipos. Su meta, llamada Ruby 3x3, era ejecutar programas hasta tres veces más rápido que con Ruby 2.0. Y el 25 de diciembre de 2025 se publicó Ruby 4.0, la rama estable vigente."
+    ],
+    "code": null,
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 6,
+    "title": "Diseño e importancia",
+    "alumno": "Alumno 1 · Introducción, historia y origen (5:00)",
+    "header": "Diapositiva 6 · Diseño e importancia (1:15)",
+    "duration_sec": 75,
+    "ppt_lines": [
+      "Diseño e importancia",
+      "ALUMNO 1",
+      "Objetivos de diseño",
+      "Productividad y felicidad del programador",
+      "Sintaxis natural y legible",
+      "Combinar ideas de Perl, Smalltalk, Eiffel, Ada y Lisp",
+      "Importancia",
+      "Rails popularizó “convención sobre configuración”",
+      "Sostiene productos y herramientas reales",
+      "Comunidad abierta: lema MINASWAN (“Matz is nice and so we are nice”)",
+      "6"
+    ],
+    "dialogos": [
+      "¿Qué buscaba Matz? Sus objetivos de diseño se resumen en tres ideas. La primera, la productividad y la felicidad del programador: quería un lenguaje pensado para las personas. La segunda, una sintaxis natural y legible. Y la tercera, combinar ideas de otros lenguajes: Ruby se inspira en Perl, Smalltalk, Eiffel, Ada y Lisp. De Smalltalk, por ejemplo, viene la idea de que todo sea un objeto.",
+      "¿Y por qué importa? Porque Rails popularizó la convención sobre configuración, una idea muy influyente en el desarrollo web. Porque Ruby sostiene productos y herramientas reales, que veremos en la parte del compañero 5. Y porque su comunidad tiene un lema: MINASWAN, “Matz is nice and so we are nice”, es decir, Matz es amable y por eso nosotros somos amables.",
+      "Transición: Con esta base, le cedo la palabra a [nombre del Alumno 2], quien nos explicará la filosofía de Ruby y sus características técnicas."
+    ],
+    "code": null,
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 7,
+    "title": "Filosofía de Ruby",
+    "alumno": "Alumno 2 · Filosofía y características (6:00)",
+    "header": "Diapositiva 7 · Filosofía de Ruby (2:00)",
+    "duration_sec": 120,
+    "ppt_lines": [
+      "Filosofía de Ruby",
+      "ALUMNO 2",
+      "Menor sorpresa",
+      "El lenguaje debe comportarse como el programador espera.",
+      "Personas primero",
+      "Se prioriza la comodidad humana sobre la de la máquina.",
+      "Flexibilidad",
+      "Hay varias formas de lograr lo mismo.",
+      "# Tres formas de imprimir 1, 2 y 3",
+      "[1, 2, 3].each { |n| puts n }",
+      "for n in [1, 2, 3] do puts n end",
+      "1.upto(3) { |n| puts n }",
+      "7"
+    ],
+    "dialogos": [
+      "Gracias, [nombre]. Para entender Ruby hay que entender su filosofía, que se apoya en tres ideas. La primera es el principio de menor sorpresa: el lenguaje debe comportarse como el programador espera. Matz aclara que se refiere sobre todo a su propia sorpresa, pero la intención es reducir la confusión y que lo más intuitivo sea lo que funciona. La segunda idea es personas primero: Ruby se diseña para la comodidad de quien programa, no para la de la máquina, aunque a veces eso signifique que la máquina trabaje más. Y la tercera es la flexibilidad: en Ruby casi siempre hay más de una forma de lograr lo mismo.",
+      "[Señalar el código de abajo] Lo vemos aquí. El comentario dice “tres formas de imprimir 1, 2 y 3”. La primera línea usa each: recorre el arreglo [1, 2, 3] y, por cada elemento n, ejecuta puts n entre llaves; es la forma más común. La segunda usa for ... in, parecida a lo que existe en otros lenguajes. La tercera usa upto: cuenta desde 1 hasta 3. Las tres imprimen exactamente lo mismo.",
+      "Esa libertad es deliberada. Su costo es que cada equipo necesita acordar un estilo, y para eso existen herramientas como RuboCop, que mencionará más adelante nuestro compañero 5."
+    ],
+    "code": "# Tres formas de imprimir 1, 2 y 3\n[1, 2, 3].each { |n| puts n }\nfor n in [1, 2, 3] do puts n end\n1.upto(3) { |n| puts n }",
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 8,
+    "title": "Características técnicas",
+    "alumno": "Alumno 2 · Filosofía y características (6:00)",
+    "header": "Diapositiva 8 · Características técnicas (2:00)",
+    "duration_sec": 120,
+    "ppt_lines": [
+      "Características técnicas",
+      "ALUMNO 2",
+      "Código .rb",
+      "Análisis (parser)",
+      "Bytecode · YARV",
+      "Ejecución (YJIT opcional)",
+      "Tipado dinámico",
+      "El tipo pertenece al valor: x = 1 y luego x = \"a\" es válido.",
+      "Todo es objeto",
+      "Enteros, textos y nil son objetos; las clases también.",
+      "Memoria automática",
+      "El recolector de basura libera lo que ya no se usa.",
+      "8"
+    ],
+    "dialogos": [
+      "Veamos ahora cómo funciona Ruby por dentro. [Señalar el diagrama superior] Un programa empieza como un archivo de código con extensión .rb. Un analizador sintáctico, o parser, lo lee y comprueba que esté bien escrito. Luego se traduce a bytecode, que son instrucciones intermedias. Y finalmente las ejecuta YARV, la máquina virtual de Ruby, ayudada opcionalmente por YJIT, un compilador JIT que convierte a código nativo las partes que más se usan.",
+      "Abajo vemos tres características. Primera: tipado dinámico. El tipo pertenece al valor, no a la variable. Por eso puedo escribir x = 1 y, más adelante, x = “a”, y ambas asignaciones son válidas. La ventaja es la flexibilidad; el riesgo, que ciertos errores de tipo solo aparecen al ejecutar el programa.",
+      "Segunda: todo es objeto, como mostró el compañero 1. Los enteros, los textos y nil son objetos, y hasta las clases lo son. Tercera: gestión automática de memoria. Ruby cuenta con un recolector de basura que identifica los objetos que ya no se usan y libera su memoria, así que el programador no reserva ni libera memoria manualmente."
+    ],
+    "code": null,
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 9,
+    "title": "Ruby frente a otros lenguajes",
+    "alumno": "Alumno 2 · Filosofía y características (6:00)",
+    "header": "Diapositiva 9 · Ruby frente a otros lenguajes (2:00)",
+    "duration_sec": 120,
+    "ppt_lines": [
+      "Ruby frente a otros lenguajes",
+      "ALUMNO 2",
+      "9"
+    ],
+    "dialogos": [
+      "Para ubicar a Ruby, comparémoslo con Python y Java. Leamos la tabla por filas. En tipado, Ruby y Python son dinámicos y Java es estático: en Java hay que declarar el tipo de cada variable. En ejecución, Ruby y Python son interpretados y trabajan con bytecode, el de YARV en Ruby y el de CPython en Python; Java compila a bytecode que ejecuta la máquina virtual de Java con compilación JIT.",
+      "En paradigma, Ruby es orientado a objetos “puro”, aunque admite un estilo funcional; Python es multiparadigma; y Java es orientado a objetos, pero conserva tipos primitivos como int. En memoria, los tres usan recolección automática; Python combina conteo de referencias con un recolector para ciclos.",
+      "Por último, la concurrencia. Ruby tiene el GVL, un bloqueo global que impide que dos hilos ejecuten código Ruby a la vez, y ofrece Ractors y Fibers para paralelismo y concurrencia ligera. Python tiene un bloqueo equivalente, el GIL, con un modo sin GIL opcional. Y Java usa hilos nativos.",
+      "En resumen, Ruby y Python se parecen mucho en su modelo de ejecución; la diferencia está en la filosofía, la sintaxis y la comunidad.",
+      "Transición: Ya sabemos qué es Ruby y cómo funciona. Ahora toca escribir código: le paso la palabra a [nombre del Alumno 3], con la sintaxis y los fundamentos."
+    ],
+    "code": null,
+    "default_stdin": "",
+    "table": {
+      "headers": [
+        "Característica",
+        "Ruby",
+        "Python",
+        "Java"
+      ],
+      "rows": [
+        [
+          "Tipado",
+          "Dinámico",
+          "Dinámico",
+          "Estático"
+        ],
+        [
+          "Ejecución",
+          "Intérprete (bytecode en YARV)",
+          "Intérprete (bytecode en CPython)",
+          "Bytecode en la JVM (JIT)"
+        ],
+        [
+          "Paradigma",
+          "OO “puro”, multiparadigma",
+          "Multiparadigma",
+          "OO con tipos primitivos"
+        ],
+        [
+          "Memoria",
+          "Recolector de basura",
+          "Conteo de referencias + GC",
+          "Recolector de basura"
+        ],
+        [
+          "Concurrencia",
+          "GVL; Ractors y Fibers",
+          "GIL (modo sin GIL opcional)",
+          "Hilos nativos"
+        ]
+      ]
+    }
+  },
+  {
+    "slide": 10,
+    "title": "Variables, tipos y operadores",
+    "alumno": "Alumno 3 · Sintaxis y fundamentos (6:00)",
+    "header": "Diapositiva 10 · Variables, tipos y operadores (2:00)",
+    "duration_sec": 120,
+    "ppt_lines": [
+      "Variables, tipos y operadores",
+      "ALUMNO 3",
+      "nombre = \"Ana\"      # variable local",
+      "PI = 3.14159        # constante",
+      "edad = 20           # Integer",
+      "precio = 19.99      # Float",
+      "activo = true       # booleano",
+      "puts edad / 3       # 6 (enteros)",
+      "puts edad / 3.0     # 6.666666666666667",
+      "puts 2 ** 10        # 1024",
+      "puts edad.class     # Integer",
+      "Tipos básicos",
+      "Integer, Float, String, Symbol, Array, Hash, true/false y nil.",
+      "Operadores",
+      "+ - * / % ** · == != <=> · && || !",
+      "10"
+    ],
+    "dialogos": [
+      "Gracias, [nombre]. Empecemos con variables, tipos y operadores. [Señalar el código] En Ruby no se declara el tipo de una variable: basta con asignarle un valor. En la primera línea, nombre = “Ana” crea una variable local de tipo cadena. En la segunda, PI empieza con mayúscula, y por convención eso la convierte en una constante; Ruby permite reasignarla, pero muestra una advertencia. Luego edad = 20 es un entero, precio = 19.99 es un decimal, de tipo Float, y activo = true es un booleano.",
+      "Ahora las operaciones. edad / 3 da 6, porque los dos números son enteros y la división es entera. Si usamos 3.0, el resultado ya es decimal: 6.666666666666667. El doble asterisco es la potencia: 2 ** 10 da 1024. Y edad.class devuelve Integer: así podemos saber el tipo de cualquier valor.",
+      "[Señalar las tarjetas de la derecha] Los tipos básicos son Integer, Float, String, Symbol, Array, Hash, true y false, y nil. Los operadores son los aritméticos, que incluyen módulo y potencia; los de comparación, como igual o diferente y la “nave espacial”, <=>, que compara dos valores y devuelve -1, 0 o 1; y los lógicos, que son y, o y no."
+    ],
+    "code": "nombre = \"Ana\"       # variable local\nPI = 3.14159         # constante\nedad = 20            # Integer\nprecio = 19.99       # Float\nactivo = true        # booleano\nputs edad / 3        # 6 (enteros)\nputs edad / 3.0      # 6.666666666666667\nputs 2 ** 10         # 1024\nputs edad.class      # Integer",
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 11,
+    "title": "Cadenas, arreglos y hashes",
+    "alumno": "Alumno 3 · Sintaxis y fundamentos (6:00)",
+    "header": "Diapositiva 11 · Cadenas, arreglos y hashes (2:00)",
+    "duration_sec": 120,
+    "ppt_lines": [
+      "Cadenas, arreglos y hashes",
+      "ALUMNO 3",
+      "nombre = \"Ana\"",
+      "puts \"Hola, #{nombre}\".upcase  # HOLA, ANA",
+      "frutas = [\"uva\", \"pera\", \"kiwi\"]",
+      "frutas << \"mango\"",
+      "puts frutas.map(&:upcase).inspect",
+      "alumno = { nombre: \"Ana\", edad: 20 }",
+      "puts alumno[:nombre]           # Ana",
+      "alumno[:carrera] = \"ISC\"",
+      "alumno.each { |k, v| puts \"#{k}: #{v}\" }",
+      "Cadenas",
+      "Interpolación con #{ } en comillas dobles.",
+      "Arreglos",
+      "Listas ordenadas; el índice inicia en 0.",
+      "Hashes",
+      "Pares clave-valor; símbolos como claves.",
+      "11"
+    ],
+    "dialogos": [
+      "Veamos ahora las estructuras de datos más usadas. [Señalar el código] La segunda línea usa interpolación: dentro de comillas dobles, #{nombre} se sustituye por el valor de la variable, y upcase pasa todo a mayúsculas, así que imprime HOLA, ANA. Con comillas simples la interpolación no funciona.",
+      "Después, un arreglo, que es una lista ordenada cuyo índice empieza en cero: frutas, con uva, pera y kiwi. El operador << agrega mango al final. Luego map aplica upcase a cada elemento; la notación &:upcase es una abreviatura, y inspect muestra el arreglo como texto: [“UVA”, “PERA”, “KIWI”, “MANGO”].",
+      "Por último, un hash, que guarda pares clave-valor. Aquí las claves son símbolos, como nombre: y edad:. alumno[:nombre] devuelve Ana. Podemos agregar una clave nueva, carrera, con el valor “ISC”. Y each recorre el hash, tomando la clave k y el valor v de cada par; imprime nombre: Ana, edad: 20 y carrera: ISC."
+    ],
+    "code": "nombre = \"Ana\"\nputs \"Hola, #{nombre}\".upcase  # HOLA, ANA\n\nfrutas = [\"uva\", \"pera\", \"kiwi\"]\nfrutas << \"mango\"\nputs frutas.map(&:upcase).inspect\n\nalumno = { nombre: \"Ana\", edad: 20 }\nputs alumno[:nombre]           # Ana\nalumno[:carrera] = \"ISC\"\nalumno.each { |k, v| puts \"#{k}: #{v}\" }",
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 12,
+    "title": "Entrada, salida y un ejemplo",
+    "alumno": "Alumno 3 · Sintaxis y fundamentos (6:00)",
+    "header": "Diapositiva 12 · Entrada, salida y un ejemplo (2:00)",
+    "duration_sec": 120,
+    "ppt_lines": [
+      "Entrada, salida y un ejemplo",
+      "ALUMNO 3",
+      "print \"¿Cómo te llamas? \"",
+      "nombre = gets.chomp",
+      "print \"¿Edad? \"",
+      "edad = gets.to_i",
+      "puts \"Hola, #{nombre}.\"",
+      "puts \"El próximo año tendrás #{edad + 1}.\"",
+      "puts format(\"Promedio: %.2f\", (8 + 9 + 10) / 3.0)",
+      "Entrada · gets",
+      "Proceso · variables y métodos",
+      "Salida · puts, print, format",
+      "12"
+    ],
+    "dialogos": [
+      "Cerremos con entrada y salida, y un ejemplo completo. [Señalar el código] Para leer del teclado usamos gets, que lee una línea. Pero esa línea incluye el salto de línea final, y chomp lo elimina. Para la edad, to_i convierte el texto a entero.",
+      "Para mostrar información, puts imprime y añade un salto de línea; print no lo añade, por eso lo usamos en las preguntas, para que la respuesta se escriba en la misma línea; y format permite dar formato: aquí, “%.2f” significa dos decimales.",
+      "Si el usuario escribe Luis y 20, el programa imprime: Hola, Luis. Luego: El próximo año tendrás 21. Y por último: Promedio: 9.00, porque 8 más 9 más 10 son 27, divididos entre 3.0 dan 9.",
+      "[Señalar el diagrama de la derecha] Esto resume el flujo de cualquier programa sencillo: entrada, proceso y salida.",
+      "Transición: Con esto ya sabemos guardar datos, leerlos y mostrarlos. Ahora [nombre del Alumno 4] nos mostrará cómo decidir y repetir con las estructuras de control, y cómo organizar el código con clases y objetos."
+    ],
+    "code": "print \"¿Cómo te llamas? \"\nnombre = gets.chomp\nprint \"¿Edad? \"\nedad = gets.to_i\nputs \"Hola, #{nombre}.\"\nputs \"El próximo año tendrás #{edad + 1}.\"\nputs format(\"Promedio: %.2f\", (8 + 9 + 10) / 3.0)",
+    "default_stdin": "Yahir\n21\n",
+    "table": null
+  },
+  {
+    "slide": 13,
+    "title": "Condicionales y ciclos",
+    "alumno": "Alumno 4 · Estructuras de control y programación orientada a objetos (6:00)",
+    "header": "Diapositiva 13 · Condicionales y ciclos (1:30)",
+    "duration_sec": 90,
+    "ppt_lines": [
+      "Condicionales y ciclos",
+      "ALUMNO 4",
+      "nota = 85",
+      "if nota >= 90",
+      "  puts \"Excelente\"",
+      "elsif nota >= 70",
+      "  puts \"Aprobado\"      # se imprime",
+      "else",
+      "  puts \"Reprobado\"",
+      "end",
+      "puts \"Pasa\" unless nota < 70",
+      "3.times { |i| puts \"Vuelta #{i}\" }",
+      "(1..5).each { |n| puts n * n }",
+      "c = 0",
+      "c += 1 while c < 3",
+      "puts c                  # 3",
+      "Condicionales",
+      "if, elsif, else, unless y case.",
+      "Ciclos",
+      "each, times, while, until y loop.",
+      "Rangos",
+      "1..5 incluye el 5; 1...5 no.",
+      "13"
+    ],
+    "dialogos": [
+      "Gracias, [nombre]. Hasta ahora nuestro código se ejecutaba de arriba abajo. Con las estructuras de control podemos decidir y repetir. [Señalar el código] Empezamos con el condicional if. Si nota es mayor o igual a 90, imprime Excelente; elsif, que significa “si no, y si”, prueba la siguiente condición; y else cubre todo lo demás. Con nota igual a 85, entra por elsif y se imprime Aprobado. Observen que no hay paréntesis ni llaves: el bloque termina con end.",
+      "La línea siguiente usa unless, que significa “a menos que”: imprime Pasa porque la nota no es menor que 70. Después vienen los ciclos. 3.times ejecuta el bloque tres veces, con i valiendo 0, 1 y 2. (1..5).each recorre el rango del 1 al 5 e imprime los cuadrados: 1, 4, 9, 16 y 25. Y en la última parte, c += 1 while c < 3 incrementa c mientras sea menor que 3, así que al final c vale 3. Un detalle del cuadro de la derecha: el rango 1..5 incluye el 5, pero 1...5, con tres puntos, no lo incluye."
+    ],
+    "code": "nota = 85\nif nota >= 90\n  puts \"Excelente\"\nelsif nota >= 70\n  puts \"Aprobado\"      # se imprime\nelse\n  puts \"Reprobado\"\nend\nputs \"Pasa\" unless nota < 70\n\n3.times { |i| puts \"Vuelta #{i}\" }\n(1..5).each { |n| puts n * n }\nc = 0\nc += 1 while c < 3\nputs c                  # 3",
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 14,
+    "title": "Métodos y bloques",
+    "alumno": "Alumno 4 · Estructuras de control y programación orientada a objetos (6:00)",
+    "header": "Diapositiva 14 · Métodos y bloques (1:30)",
+    "duration_sec": 90,
+    "ppt_lines": [
+      "Métodos y bloques",
+      "ALUMNO 4",
+      "def area(base, altura = 1)",
+      "  base * altura / 2.0",
+      "end",
+      "puts area(6, 4)      # 12.0",
+      "def repetir(veces)",
+      "  veces.times { |i| yield i }",
+      "end",
+      "repetir(3) { |n| puts \"Paso #{n}\" }",
+      "Retorno implícito",
+      "Devuelve la última expresión.",
+      "Argumentos",
+      "Pueden tener valor por defecto.",
+      "Bloques y yield",
+      "El método cede el control al bloque.",
+      "14"
+    ],
+    "dialogos": [
+      "Para no repetir código usamos métodos, que se definen con def. [Señalar el código] El método area recibe base y altura, y altura tiene un valor por defecto de 1. En Ruby no hace falta escribir return: el método devuelve el valor de la última expresión, aquí base por altura entre 2.0, el área de un triángulo. Por eso area(6, 4) imprime 12.0.",
+      "Ahora los bloques, una de las ideas más características de Ruby. El método repetir recibe un número y llama a times; dentro, yield cede el control al bloque que se pasó al llamar al método. En la llamada, repetir(3) y luego las llaves, el código entre llaves es el bloque, y n recibe el valor que entrega yield. El resultado es Paso 0, Paso 1 y Paso 2. Así funcionan también each, times y map: son métodos que reciben bloques."
+    ],
+    "code": "def area(base, altura = 1)\n  base * altura / 2.0\nend\nputs area(6, 4)      # 12.0\n\ndef repetir(veces)\n  veces.times { |i| yield i }\nend\nrepetir(3) { |n| puts \"Paso #{n}\" }",
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 15,
+    "title": "Clases y objetos",
+    "alumno": "Alumno 4 · Estructuras de control y programación orientada a objetos (6:00)",
+    "header": "Diapositiva 15 · Clases y objetos (1:30)",
+    "duration_sec": 90,
+    "ppt_lines": [
+      "Clases y objetos",
+      "ALUMNO 4",
+      "class Persona",
+      "  attr_reader :nombre",
+      "  def initialize(nombre, edad)",
+      "    @nombre = nombre",
+      "    @edad = edad",
+      "  end",
+      "  def presentarse",
+      "    \"Soy #{@nombre}, tengo #{@edad} años\"",
+      "  end",
+      "end",
+      "ana = Persona.new(\"Ana\", 20)",
+      "puts ana.presentarse",
+      "Clase Persona",
+      "@nombre, @edad · presentarse",
+      "new",
+      "Objeto ana",
+      "@nombre = \"Ana\"",
+      "15"
+    ],
+    "dialogos": [
+      "Pasemos a la programación orientada a objetos. Una clase es el molde y un objeto es una instancia de ese molde. [Señalar el código] Definimos la clase Persona. attr_reader :nombre crea automáticamente un método para leer el nombre. initialize es el constructor: se ejecuta al crear un objeto y guarda los datos en variables de instancia, que empiezan con arroba, como @nombre y @edad; son atributos propios de cada objeto. El método presentarse devuelve un texto con esos datos.",
+      "Al final, Persona.new(“Ana”, 20) crea un objeto, que guardamos en la variable ana, y ana.presentarse imprime: Soy Ana, tengo 20 años. [Señalar el diagrama] A la izquierda está la clase, la flecha new produce el objeto, y a la derecha ana, con su propio valor de @nombre. Esta clase será la base de la siguiente diapositiva."
+    ],
+    "code": "class Persona\n  attr_reader :nombre\n  def initialize(nombre, edad)\n    @nombre = nombre\n    @edad = edad\n  end\n  def presentarse\n    \"Soy #{@nombre}, tengo #{@edad} años\"\n  end\nend\n\nana = Persona.new(\"Ana\", 20)\nputs ana.presentarse",
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 16,
+    "title": "Herencia y encapsulamiento",
+    "alumno": "Alumno 4 · Estructuras de control y programación orientada a objetos (6:00)",
+    "header": "Diapositiva 16 · Herencia y encapsulamiento (1:30)",
+    "duration_sec": 90,
+    "ppt_lines": [
+      "Herencia y encapsulamiento",
+      "ALUMNO 4",
+      "class Estudiante < Persona",
+      "  def initialize(nombre, edad, carrera)",
+      "    super(nombre, edad)",
+      "    @carrera = carrera",
+      "  end",
+      "  def presentarse",
+      "    super + \" y estudio #{@carrera}\"",
+      "  end",
+      "  private",
+      "  def secreto = \"uso interno\"",
+      "end",
+      "e = Estudiante.new(\"Luis\", 21, \"ISC\")",
+      "puts e.presentarse",
+      "Herencia",
+      "Estudiante < Persona; super llama al método del padre.",
+      "Encapsulamiento",
+      "Las variables @ son privadas; hay public, protected y private.",
+      "private",
+      "e.secreto lanza NoMethodError.",
+      "16"
+    ],
+    "dialogos": [
+      "Ahora la herencia. [Señalar el código] Estudiante < Persona significa que Estudiante hereda todo lo de Persona. Su constructor agrega la carrera y, con super(nombre, edad), llama al constructor de la clase padre para no repetir código. En presentarse, super más “ y estudio” y la carrera toma el texto de Persona y le añade la carrera. Con Luis, 21 e ISC se imprime: Soy Luis, tengo 21 años y estudio ISC. Este ejemplo usa la clase Persona de la diapositiva anterior.",
+      "El encapsulamiento consiste en ocultar los detalles internos. Lo que está bajo private solo puede llamarse dentro del objeto; el método secreto, escrito en forma abreviada, solo sirve internamente. Si desde fuera intentamos e.secreto, Ruby lanza un error NoMethodError. Además, las variables de instancia son privadas por defecto, y existen tres niveles de acceso: public, protected y private.",
+      "Transición: Con esto cerramos el lenguaje en sí. Ahora [nombre del Alumno 5] nos mostrará lo que hay alrededor: el ecosistema y las aplicaciones reales de Ruby."
+    ],
+    "code": "class Persona\n  attr_reader :nombre\n  def initialize(nombre, edad)\n    @nombre = nombre\n    @edad = edad\n  end\n  def presentarse\n    \"Soy #{@nombre}, tengo #{@edad} años\"\n  end\nend\n\nclass Estudiante < Persona\n  def initialize(nombre, edad, carrera)\n    super(nombre, edad)\n    @carrera = carrera\n  end\n  def presentarse\n    super + \" y estudio #{@carrera}\"\n  end\n  private\n  def secreto = \"uso interno\"\nend\n\ne = Estudiante.new(\"Luis\", 21, \"ISC\")\nputs e.presentarse",
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 17,
+    "title": "RubyGems y herramientas",
+    "alumno": "Alumno 5 · Ecosistema y aplicaciones (6:00)",
+    "header": "Diapositiva 17 · RubyGems y herramientas (2:00)",
+    "duration_sec": 120,
+    "ppt_lines": [
+      "RubyGems y herramientas",
+      "ALUMNO 5",
+      "Rails · framework web",
+      "Bundler · versiones y Gemfile",
+      "RubyGems · paquetes (gems)",
+      "Ruby · el lenguaje",
+      "# Gemfile",
+      "source \"https://rubygems.org\"",
+      "gem \"rails\"",
+      "gem \"puma\"",
+      "Herramientas útiles",
+      "irb (consola), Rake (tareas), RSpec y Minitest (pruebas), RuboCop (estilo) y Sinatra (web ligera).",
+      "17"
+    ],
+    "dialogos": [
+      "Gracias, [nombre]. Hasta ahora hablamos del lenguaje; ahora hablaremos de su ecosistema. Un error muy frecuente es confundir Ruby con Rails, así que aclaremos las capas, de abajo hacia arriba. [Señalar el diagrama] Ruby es el lenguaje. RubyGems es el gestor de paquetes: cada biblioteca se llama gem y se publica en rubygems.org; se instala con el comando gem install. Bundler gestiona las dependencias de un proyecto mediante un archivo llamado Gemfile. Y Rails es un framework web escrito en Ruby: usa Ruby, pero no es Ruby.",
+      "[Señalar el código] En el Gemfile, source indica de dónde se descargan las gems, y cada línea gem declara una dependencia; aquí rails y puma, que es un servidor web. Con el comando bundle install, Bundler instala todo lo declarado.",
+      "Por último, algunas herramientas útiles: irb, una consola interactiva para probar código; Rake, para automatizar tareas; RSpec y Minitest, para pruebas; RuboCop, que revisa el estilo del código, y Sinatra, un framework web ligero."
+    ],
+    "code": null,
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 18,
+    "title": "Ruby on Rails",
+    "alumno": "Alumno 5 · Ecosistema y aplicaciones (6:00)",
+    "header": "Diapositiva 18 · Ruby on Rails (2:00)",
+    "duration_sec": 120,
+    "ppt_lines": [
+      "Ruby on Rails",
+      "ALUMNO 5",
+      "Navegador",
+      "Router",
+      "Controlador",
+      "Modelo (Active Record)",
+      "Vista (ERB)",
+      "rails new miapp",
+      "cd miapp",
+      "bin/rails generate scaffold Libro titulo:string",
+      "bin/rails db:migrate",
+      "bin/rails server",
+      "Convención sobre configuración",
+      "Nombres y estructura por defecto.",
+      "Rails ≠ Ruby",
+      "Rails es un framework escrito en Ruby.",
+      "18"
+    ],
+    "dialogos": [
+      "Rails fue creado por David Heinemeier Hansson y liberado en 2004. Es un framework web escrito en Ruby que sigue el patrón Modelo-Vista-Controlador. [Recorrer el diagrama superior] El navegador envía una petición; el router decide qué controlador la atiende; el controlador usa el modelo; el modelo, con Active Record, consulta la base de datos; y la vista, que usa plantillas ERB, genera el HTML que regresa al navegador.",
+      "Su principio central es convención sobre configuración: si la clase se llama Libro, Rails espera encontrar la tabla libros, y ese tipo de acuerdos evita mucha configuración. [Señalar el código] Con cinco comandos tenemos una aplicación. rails new miapp crea el proyecto y cd miapp entra a la carpeta. El comando generate scaffold crea de una vez el modelo, el controlador y las vistas para Libro, con un campo título de tipo cadena. db:migrate crea la tabla en la base de datos y rails server arranca el servidor de desarrollo. Al abrir localhost:3000 en el navegador, ya hay una aplicación para crear, ver, editar y borrar libros."
+    ],
+    "code": null,
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 19,
+    "title": "Empresas y automatización",
+    "alumno": "Alumno 5 · Ecosistema y aplicaciones (6:00)",
+    "header": "Diapositiva 19 · Empresas y automatización (2:00)",
+    "duration_sec": 120,
+    "ppt_lines": [
+      "Empresas y automatización",
+      "ALUMNO 5",
+      "GitHub",
+      "Plataforma de código · Rails",
+      "Shopify",
+      "Comercio electrónico · Rails",
+      "37signals",
+      "Basecamp, cuna de Rails",
+      "GitLab",
+      "DevOps y repositorios · Rails",
+      "Discourse",
+      "Foros · Rails",
+      "Homebrew",
+      "Paquetes macOS/Linux · Ruby",
+      "Automatización con scripts",
+      "require \"fileutils\"",
+      "FileUtils.mkdir_p(\"backup\")",
+      "Dir.glob(\"*.txt\").each do |f|",
+      "  FileUtils.mv(f, \"backup/#{f}\")",
+      "end",
+      "¿Qué hace?",
+      "Crea la carpeta backup y mueve a ella los .txt del directorio actual.",
+      "Fuente: sitios oficiales de cada proyecto",
+      "19"
+    ],
+    "dialogos": [
+      "Veamos usos reales. [Señalar las tarjetas] GitHub, Shopify, GitLab y Discourse están construidos con Rails. 37signals es la empresa de Basecamp, el producto de donde nació Rails. Y Homebrew, el gestor de paquetes para macOS y Linux, está escrito en Ruby. Estos ejemplos provienen de los sitios oficiales de cada proyecto, como indica la nota al pie.",
+      "Ruby también sirve para automatizar tareas. [Señalar el código de la derecha] require “fileutils” carga una biblioteca estándar para manipular archivos. FileUtils.mkdir_p(“backup”) crea la carpeta backup, y no falla si ya existe. Dir.glob(“*.txt”) devuelve todos los archivos .txt del directorio actual, y each do |f| recorre cada uno. Dentro, FileUtils.mv mueve el archivo f a la carpeta backup. En pocas líneas, hicimos un respaldo de todos los textos.",
+      "Transición: Ya vimos qué es Ruby, cómo se escribe y para qué se usa. Para cerrar, [nombre del Alumno 6] hará una evaluación crítica y las conclusiones."
+    ],
+    "code": null,
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 20,
+    "title": "Ventajas, límites y rendimiento",
+    "alumno": "Alumno 6 · Evaluación y conclusiones (6:00)",
+    "header": "Diapositiva 20 · Ventajas, límites y rendimiento (1:30)",
+    "duration_sec": 90,
+    "ppt_lines": [
+      "Ventajas, límites y rendimiento",
+      "ALUMNO 6",
+      "Ventajas",
+      "Sintaxis expresiva y legible",
+      "Alta productividad (Rails)",
+      "Ecosistema de gems maduro",
+      "Comunidad abierta y activa",
+      "Desventajas",
+      "Menos veloz que lenguajes compilados",
+      "El GVL limita el paralelismo en CPU",
+      "Menor presencia en ciencia de datos e IA",
+      "Errores de tipo aparecen al ejecutar",
+      "Rendimiento",
+      "YJIT compila a código nativo las partes más usadas; Ruby 4.0 añade ZJIT (experimental).",
+      "20"
+    ],
+    "dialogos": [
+      "Gracias, [nombre]. Evaluemos a Ruby con honestidad. Sus ventajas: una sintaxis expresiva y legible; alta productividad, sobre todo con Rails; un ecosistema de gems maduro; y una comunidad abierta y activa. Sus desventajas: es menos veloz que los lenguajes compilados; el GVL limita el paralelismo en tareas que consumen mucho procesador; tiene menor presencia que Python en ciencia de datos e inteligencia artificial; y, al ser dinámico, algunos errores de tipo aparecen hasta ejecutar el programa.",
+      "Sobre el rendimiento: YJIT compila a código nativo las partes más usadas y mejora la velocidad, y Ruby 4.0 añade ZJIT, un nuevo compilador JIT que todavía es experimental."
+    ],
+    "code": null,
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 21,
+    "title": "Ruby, Python y Java",
+    "alumno": "Alumno 6 · Evaluación y conclusiones (6:00)",
+    "header": "Diapositiva 21 · Ruby, Python y Java (1:30)",
+    "duration_sec": 90,
+    "ppt_lines": [
+      "Ruby, Python y Java",
+      "ALUMNO 6",
+      "Comparación general; el rendimiento real depende de la carga de trabajo.",
+      "21"
+    ],
+    "dialogos": [
+      "[Recorrer la tabla por filas] Comparemos los tres lenguajes desde el punto de vista del uso. En uso típico, Ruby destaca en desarrollo web con Rails y en scripts; Python, en ciencia de datos, inteligencia artificial y scripts; y Java, en sistemas empresariales. En sintaxis, Ruby es expresivo y flexible, Python es simple y usa la indentación, y Java es más verboso y estricto. En rendimiento, Java suele ser más rápido por su tipado estático y su compilación JIT, mientras que Ruby y Python quedan en un nivel medio. En frameworks web, Rails y Sinatra, Django y Flask, y Spring. Y en aprendizaje, Ruby y Python tienen una curva baja y Java, media.",
+      "Ojo con la nota al pie: es una comparación general, y el rendimiento real siempre depende de la carga de trabajo."
+    ],
+    "code": null,
+    "default_stdin": "",
+    "table": {
+      "headers": [
+        "Criterio",
+        "Ruby",
+        "Python",
+        "Java"
+      ],
+      "rows": [
+        [
+          "Uso típico",
+          "Web (Rails) y scripts",
+          "Ciencia de datos, IA, scripts",
+          "Sistemas empresariales"
+        ],
+        [
+          "Sintaxis",
+          "Expresiva y flexible",
+          "Simple, por indentación",
+          "Verbosa y estricta"
+        ],
+        [
+          "Rendimiento",
+          "Medio (JIT opcional)",
+          "Medio",
+          "Alto (JVM con JIT)"
+        ],
+        [
+          "Framework web",
+          "Rails, Sinatra",
+          "Django, Flask",
+          "Spring"
+        ],
+        [
+          "Aprendizaje",
+          "Curva baja",
+          "Curva baja",
+          "Curva media"
+        ]
+      ]
+    }
+  },
+  {
+    "slide": 22,
+    "title": "Instalación y vigencia",
+    "alumno": "Alumno 6 · Evaluación y conclusiones (6:00)",
+    "header": "Diapositiva 22 · Instalación y vigencia (1:30)",
+    "duration_sec": 90,
+    "ppt_lines": [
+      "Instalación y vigencia",
+      "ALUMNO 6",
+      "Instalar",
+      "Linux/macOS: rbenv o RVM",
+      "Windows: RubyInstaller",
+      "Editor: VS Code con Ruby LSP",
+      "ruby -v",
+      "gem install bundler",
+      "irb",
+      "Vigencia",
+      "4.0",
+      "Rama estable vigente (4.0.6, julio de 2026)",
+      "Versión estable cada Navidad",
+      "Mantenimiento de cada rama: unos tres años",
+      "22"
+    ],
+    "dialogos": [
+      "Para instalar Ruby en Linux o macOS se suele usar un gestor de versiones como rbenv o RVM; en Windows, RubyInstaller. [Señalar el código] Con ruby -v verificamos la versión instalada, gem install bundler instala Bundler, e irb abre la consola interactiva para probar código. Como editor, VS Code con la extensión Ruby LSP es una buena opción.",
+      "Sobre la vigencia: la rama estable actual es Ruby 4.0, cuya versión 4.0.6 se publicó el 14 de julio de 2026. Se publica una versión estable nueva cada Navidad, y cada rama recibe mantenimiento durante unos tres años. Para saber cuál es la versión más reciente, conviene consultar ruby-lang.org."
+    ],
+    "code": null,
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 23,
+    "title": "Conclusiones",
+    "alumno": "Alumno 6 · Evaluación y conclusiones (6:00)",
+    "header": "Diapositiva 23 · Conclusiones (1:30)",
+    "duration_sec": 90,
+    "ppt_lines": [
+      "Conclusiones",
+      "ALUMNO 6",
+      "1",
+      "Ruby es un lenguaje dinámico y orientado a objetos creado por Matz en 1995.",
+      "2",
+      "Su fortaleza es la expresividad y la productividad; Rails la llevó a la web.",
+      "3",
+      "Sus límites: rendimiento y menor presencia en ciencia de datos e IA.",
+      "4",
+      "Sigue vigente: Ruby 4.0, comunidad activa y uso en producción.",
+      "23"
+    ],
+    "dialogos": [
+      "Para cerrar, cuatro ideas. Uno: Ruby es un lenguaje dinámico y orientado a objetos, creado por Matz en 1995. Dos: su fortaleza es la expresividad y la productividad, y Rails la llevó al desarrollo web. Tres: tiene límites, como el rendimiento y su menor presencia en ciencia de datos e inteligencia artificial. Y cuatro: sigue vigente, con Ruby 4.0, una comunidad activa y uso en producción.",
+      "Si tuviéramos que resumirlo en una frase, Ruby es un lenguaje pensado para que programar sea cómodo. Muchas gracias por su atención.",
+      "Transición: Ahora pasamos a las referencias y, enseguida, a sus preguntas."
+    ],
+    "code": null,
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 24,
+    "title": "Referencias bibliográficas",
+    "alumno": "Cierre (fuera de los 35 minutos)",
+    "header": "Diapositiva 24 · Referencias bibliográficas",
+    "duration_sec": 60,
+    "ppt_lines": [
+      "Referencias bibliográficas",
+      "Ruby Programming Language. (s. f.). Sitio oficial de Ruby. https://www.ruby-lang.org/",
+      "Ruby Programming Language. (s. f.). Ruby documentation. https://docs.ruby-lang.org/",
+      "Ruby on Rails. (s. f.). Ruby on Rails. https://rubyonrails.org/",
+      "Ruby on Rails. (s. f.). Ruby on Rails Guides. https://guides.rubyonrails.org/",
+      "RubyGems.org. (s. f.). RubyGems. https://rubygems.org/",
+      "k0kubun. (14 de julio de 2026). Ruby 4.0.6 Released. ruby-lang.org. https://www.ruby-lang.org/en/news/2026/07/14/ruby-4-0-6-released/",
+      "Shibata, H. (2026). Is your Ruby version still supported? DEV Community. https://dev.to/hsbt/is-your-ruby-version-still-supported-a-maintainers-guide-to-rubys-release-cycle-799",
+      "Flanagan, D., & Matsumoto, Y. (2008). The Ruby Programming Language. O’Reilly Media.",
+      "Thomas, D., Fowler, C., & Hunt, A. (2013). Programming Ruby 1.9 & 2.0 (4.ª ed.). The Pragmatic Bookshelf.",
+      "24"
+    ],
+    "dialogos": [
+      "[Alumno 6 o cualquiera del equipo] En esta diapositiva están las fuentes que consultamos. Priorizamos la documentación oficial de Ruby y de Rails, y la complementamos con el anuncio de la versión 4.0.6, un artículo sobre el ciclo de versiones de Ruby y dos libros de referencia. No es necesario leerla; basta con dejarla visible unos segundos."
+    ],
+    "code": null,
+    "default_stdin": "",
+    "table": null
+  },
+  {
+    "slide": 25,
+    "title": "¿Preguntas?",
+    "alumno": "Cierre (fuera de los 35 minutos)",
+    "header": "Diapositiva 25 · ¿Preguntas?",
+    "duration_sec": 60,
+    "ppt_lines": [
+      "¿Preguntas?",
+      "puts \"¡Gracias!\""
+    ],
+    "dialogos": [
+      "[Todos] Con esto terminamos. Muchas gracias. Con gusto responderemos preguntas. Cada compañero contesta las de su bloque: filosofía y características al Alumno 2; sintaxis al 3; control y objetos al 4; ecosistema y aplicaciones al 5; y ventajas, comparaciones y vigencia al 6. Las preguntas sobre historia las atiende el Alumno 1."
+    ],
+    "code": "puts \"¡Gracias!\"",
+    "default_stdin": "",
+    "table": null
+  }
+]
