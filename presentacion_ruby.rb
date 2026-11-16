@@ -986,10 +986,17 @@ HTML_PAGE = <<~'HTML'
           `;
         }
         if (s.slide === 17) {
-          // RubyGems + logo oficial
+          // RubyGems + Gemfile compacto + logo oficial
+          const topItems = rawPoints.slice(0, 4).map((l, i) => `<li style="animation-delay:${i * 40}ms;font-size:16px;padding:7px 11px;">${escapeHtml(l)}</li>`).join('');
+          const gemfileLines = rawPoints.slice(4, 8).join('\n');
+          const tools = rawPoints.slice(8).map((l, i) => `<li style="animation-delay:${(i + 4) * 40}ms;font-size:15.5px;padding:7px 11px;">${escapeHtml(l)}</li>`).join('');
           return `
-            <div class="slide-body with-media">
-              <div class="points-card"><ul class="points-list">${pointsHtml}</ul></div>
+            <div class="slide-body with-media" style="height:100%;">
+              <div class="points-card" style="gap:10px;justify-content:space-between;">
+                <ul class="points-list" style="gap:7px;">${topItems}</ul>
+                <pre style="margin:0;background:#06090e;border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:14.5px;line-height:1.4;color:#fde68a;">${escapeHtml(gemfileLines)}</pre>
+                <ul class="points-list" style="gap:7px;">${tools}</ul>
+              </div>
               <div class="media-card">
                 <img src="/img/rubygems.png" class="logo-transparent" alt="RubyGems" />
                 <div class="media-caption">RubyGems &amp; Bundler</div>
@@ -1142,7 +1149,7 @@ HTML_PAGE = <<~'HTML'
               <h1 class="slide-title ${isIntro ? 'intro-reveal' : ''}">${escapeHtml(s.title)}</h1>
             </div>
 
-            ${specialBody ? `<div style="flex:1;min-height:0;">${specialBody}</div>` : `
+            ${specialBody ? `<div style="flex:1;min-height:0;display:flex;flex-direction:column;">${specialBody}</div>` : `
               <div class="slide-body ${(hasCode && hasPoints) ? 'with-code' : ''} ${isIntro ? 'intro-reveal' : ''}">
                 ${hasTable ? tableHtml : (hasPoints ? `
                   <div class="points-card">
