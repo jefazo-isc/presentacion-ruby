@@ -818,6 +818,7 @@ HTML_PAGE = <<~'HTML'
         14: 'metodos_y_bloques.rb',
         15: 'clase_persona.rb',
         16: 'herencia_estudiante.rb',
+        19: 'automatizacion_backup.rb',
         25: 'despedida.rb'
       };
       function getCodeFilename(slideNum) {
@@ -914,17 +915,73 @@ HTML_PAGE = <<~'HTML'
           `;
         }
         if (s.slide === 8) {
-          const steps = rawPoints.slice(0, 4);
-          const rest = rawPoints.slice(4).map((l, i) => `<li style="animation-delay:${i * 45}ms">${escapeHtml(l)}</li>`).join('');
+          const stages = [
+            ['1. Código fuente (.rb)', 'Alto nivel: abstrae hardware y punteros'],
+            ['2. Lexer & Parser', 'Tokenización y Árbol Sintáctico (AST / Prism)'],
+            ['3. Bytecode YARV', 'Compilado a instrucciones para VM de pila'],
+            ['4. Ejecución + YJIT', 'Interpreta bytecode o compila a código nativo']
+          ];
+          const cards = [
+            ['Alto nivel de abstracción', 'Prioriza expresividad y legibilidad; sin manejo manual de punteros.'],
+            ['Tipado dinámico', 'El tipo pertenece al valor en ejecución: x = 1 y luego x = "a" es válido.'],
+            ['Todo es objeto', 'Enteros, textos, nil y clases responden a métodos.'],
+            ['Memoria automática (GC)', 'Recolector de basura incremental (Mark & Sweep / Tri-color).']
+          ];
           return `
-            <div style="display:flex;flex-direction:column;height:100%;">
-              <div class="flow-row">
-                ${steps.map((st, idx) => `
-                  <div class="flow-step" style="animation-delay:${idx * 70}ms">${escapeHtml(st)}</div>
-                  ${idx < steps.length - 1 ? '<span class="flow-arrow">→</span>' : ''}
+            <div style="display:flex;flex-direction:column;height:100%;gap:14px;">
+              <div class="flow-row" style="margin-bottom:0;">
+                ${stages.map((st, idx) => `
+                  <div class="flow-step" style="animation-delay:${idx * 70}ms;text-align:left;padding:12px 14px;">
+                    <div style="color:#fda4af;font-size:14px;font-weight:800;margin-bottom:4px;">${st[0]}</div>
+                    <div style="font-size:13px;font-weight:400;color:#e2e8f0;line-height:1.35;">${st[1]}</div>
+                  </div>
+                  ${idx < stages.length - 1 ? '<span class="flow-arrow">→</span>' : ''}
                 `).join('')}
               </div>
-              <div class="points-card" style="flex:1;"><ul class="points-list two-cols">${rest}</ul></div>
+              <div class="cards-grid-2" style="flex:1;">
+                ${cards.map((c, idx) => `
+                  <div class="feature-card" style="animation-delay:${(idx + 4) * 55}ms">
+                    <div class="feature-title" style="font-size:18px;">${c[0]}</div>
+                    <div class="feature-desc" style="font-size:15px;">${c[1]}</div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+        if (s.slide === 20) {
+          const quads = [
+            ['Ventajas', '#34d399', [
+              'Sintaxis expresiva, legible y concisa.',
+              'Alta productividad (convención sobre configuración en Rails).',
+              'Ecosistema de gems maduro y comunidad activa.'
+            ]],
+            ['Límites y Rendimiento', '#fbbf24', [
+              'Menor velocidad pura frente a lenguajes compilados estáticos.',
+              'El GVL limita el paralelismo CPU-bound en hilos tradicionales.',
+              'YJIT (y ZJIT experimental en 4.0) aceleran rutas calientes.'
+            ]],
+            ['✅ Cuándo SÍ usarlo', '#38bdf8', [
+              'Aplicaciones web rápidas, APIs y MVPs con Ruby on Rails.',
+              'Scripts de automatización, DevOps y herramientas CLI.',
+              'Prototipado ágil donde importa la velocidad de desarrollo.'
+            ]],
+            ['⛔ Cuándo NO usarlo', '#fb7185', [
+              'Ciencia de datos, Machine Learning o IA (menor ecosistema).',
+              'Cómputo paralelo intensivo en CPU o videojuegos 3D.',
+              'Sistemas embebidos o tiempo real estricto con memoria mínima.'
+            ]]
+          ];
+          return `
+            <div class="cards-grid-2">
+              ${quads.map((q, idx) => `
+                <div class="feature-card" style="border-top-color:${q[1]};animation-delay:${idx * 65}ms;justify-content:flex-start;">
+                  <div class="feature-title" style="color:${q[1]};font-size:19px;">${q[0]}</div>
+                  <ul style="margin:4px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:6px;color:#e2e8f0;font-size:15px;line-height:1.38;">
+                    ${q[2].map(item => `<li>${escapeHtml(item)}</li>`).join('')}
+                  </ul>
+                </div>
+              `).join('')}
             </div>
           `;
         }
