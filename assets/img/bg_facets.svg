@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="rubyGlow1" cx="18%" cy="22%" r="48%">
+      <stop offset="0%" stop-color="#e11d48" stop-opacity="0.22"/>
+      <stop offset="55%" stop-color="#9f1239" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="#080b12" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="cyanGlow2" cx="85%" cy="80%" r="45%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.14"/>
+      <stop offset="60%" stop-color="#0284c7" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#080b12" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dotGrid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#94a3b8" fill-opacity="0.16"/>
+    </pattern>
+    <linearGradient id="facetStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185" stop-opacity="0.22"/>
+      <stop offset="50%" stop-color="#e11d48" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.14"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="720" fill="#070a11"/>
+  <rect width="1280" height="720" fill="url(#dotGrid)"/>
+  <rect width="1280" height="720" fill="url(#rubyGlow1)"/>
+  <rect width="1280" height="720" fill="url(#cyanGlow2)"/>
+
+  <!-- Facetas geométricas de rubí en las esquinas -->
+  <g fill="none" stroke="url(#facetStroke)" stroke-width="1.2">
+    <polygon points="-40,140 160,-20 320,110 110,270" fill="#e11d48" fill-opacity="0.025"/>
+    <polygon points="160,-20 420,-30 320,110" fill="#fb7185" fill-opacity="0.018"/>
+    <polygon points="-30,340 110,270 210,480 -10,560" fill="#e11d48" fill-opacity="0.02"/>
+
+    <polygon points="1040,510 1290,410 1310,670 1120,740" fill="#38bdf8" fill-opacity="0.022"/>
+    <polygon points="940,660 1040,510 1120,740" fill="#e11d48" fill-opacity="0.025"/>
+    <polygon points="1130,-20 1310,40 1240,220 1030,130" fill="#fb7185" fill-opacity="0.02"/>
+  </g>
+
+  <!-- Líneas sutiles de grafo AST / compilación en el fondo -->
+  <g stroke="#fb7185" stroke-opacity="0.12" stroke-width="1" fill="none">
+    <path d="M 980 90 L 1060 150 L 1180 120"/>
+    <path d="M 1060 150 L 1090 235"/>
+    <path d="M 80 580 L 170 630 L 260 595"/>
+    <path d="M 170 630 L 185 700"/>
+  </g>
+  <g fill="#fb7185" fill-opacity="0.22">
+    <circle cx="980" cy="90" r="3.5"/>
+    <circle cx="1060" cy="150" r="4.5"/>
+    <circle cx="1180" cy="120" r="3"/>
+    <circle cx="1090" cy="235" r="3.5"/>
+    <circle cx="80" cy="580" r="3"/>
+    <circle cx="170" cy="630" r="4"/>
+    <circle cx="260" cy="595" r="3"/>
+  </g>
+</svg>

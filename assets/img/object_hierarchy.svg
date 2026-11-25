@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 235" width="540" height="235">
+  <defs>
+    <marker id="upArrow" viewBox="0 0 10 10" refX="5" refY="2" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M 1 9 L 5 1 L 9 9 z" fill="#fb7185"/>
+    </marker>
+  </defs>
+
+  <rect x="2" y="2" width="536" height="231" rx="12" fill="#090e18" stroke="#fb7185" stroke-opacity="0.3" stroke-width="1.2"/>
+  <text x="16" y="22" fill="#fda4af" font-family="Inter, sans-serif" font-size="11" font-weight="800" letter-spacing="0.8">JERARQUÍA PURA DE OBJETOS (SIN TIPOS PRIMITIVOS)</text>
+
+  <!-- BasicObject -->
+  <rect x="195" y="34" width="150" height="32" rx="8" fill="#9f1239" fill-opacity="0.45" stroke="#ff4d6d" stroke-width="1.5"/>
+  <text x="270" y="54" text-anchor="middle" fill="#ffffff" font-family="JetBrains Mono, monospace" font-size="12.5" font-weight="700">BasicObject</text>
+
+  <!-- Line BasicObject -> Object -->
+  <line x1="270" y1="86" x2="270" y2="68" stroke="#fb7185" stroke-width="1.6" marker-end="url(#upArrow)"/>
+
+  <!-- Object -->
+  <rect x="205" y="88" width="130" height="32" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="270" y="108" text-anchor="middle" fill="#bae6fd" font-family="JetBrains Mono, monospace" font-size="12.5" font-weight="700">Object</text>
+
+  <!-- Connecting bar from Object down to children -->
+  <line x1="270" y1="120" x2="270" y2="136" stroke="#475569" stroke-width="1.5"/>
+  <line x1="56" y1="136" x2="484" y2="136" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- 5 vertical branches -->
+  <line x1="56" y1="136" x2="56" y2="152" stroke="#475569" stroke-width="1.5"/>
+  <line x1="163" y1="136" x2="163" y2="152" stroke="#475569" stroke-width="1.5"/>
+  <line x1="270" y1="136" x2="270" y2="152" stroke="#475569" stroke-width="1.5"/>
+  <line x1="377" y1="136" x2="377" y2="152" stroke="#475569" stroke-width="1.5"/>
+  <line x1="484" y1="136" x2="484" y2="152" stroke="#475569" stroke-width="1.5"/>
+
+  <!-- Child 1: Numeric / Integer -->
+  <rect x="12" y="152" width="88" height="48" rx="8" fill="#111827" stroke="#34d399" stroke-width="1.2"/>
+  <text x="56" y="172" text-anchor="middle" fill="#6ee7b7" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">Integer</text>
+  <text x="56" y="190" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="10">5.class</text>
+
+  <!-- Child 2: String -->
+  <rect x="119" y="152" width="88" height="48" rx="8" fill="#111827" stroke="#fbbf24" stroke-width="1.2"/>
+  <text x="163" y="172" text-anchor="middle" fill="#fde68a" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">String</text>
+  <text x="163" y="190" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="10">"Ruby".upcase</text>
+
+  <!-- Child 3: NilClass -->
+  <rect x="226" y="152" width="88" height="48" rx="8" fill="#111827" stroke="#94a3b8" stroke-width="1.2"/>
+  <text x="270" y="172" text-anchor="middle" fill="#e2e8f0" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">NilClass</text>
+  <text x="270" y="190" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="10">nil.nil?</text>
+
+  <!-- Child 4: Module / Class -->
+  <rect x="333" y="152" width="88" height="48" rx="8" fill="#111827" stroke="#fb7185" stroke-width="1.2"/>
+  <text x="377" y="172" text-anchor="middle" fill="#fda4af" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">Class</text>
+  <text x="377" y="190" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="10">Persona.class</text>
+
+  <!-- Child 5: Custom Persona -->
+  <rect x="440" y="152" width="88" height="48" rx="8" fill="#9f1239" fill-opacity="0.25" stroke="#ff4d6d" stroke-width="1.2"/>
+  <text x="484" y="172" text-anchor="middle" fill="#ffffff" font-family="JetBrains Mono, monospace" font-size="11.5" font-weight="700">Persona</text>
+  <text x="484" y="190" text-anchor="middle" fill="#fda4af" font-family="JetBrains Mono, monospace" font-size="10">Estudiante &lt;</text>
+
+  <text x="270" y="219" text-anchor="middle" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10.5">Todo valor responde a mensajes (métodos); las clases también son objetos en tiempo de ejecución.</text>
+</svg>

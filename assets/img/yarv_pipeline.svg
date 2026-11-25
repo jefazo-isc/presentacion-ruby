@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 185" width="1120" height="185">
+  <defs>
+    <linearGradient id="boxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#171f30"/>
+      <stop offset="100%" stop-color="#0f1522"/>
+    </linearGradient>
+    <linearGradient id="yarvGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9f1239" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#e11d48" stop-opacity="0.25"/>
+    </linearGradient>
+    <linearGradient id="yjitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#065f46" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0.2"/>
+    </linearGradient>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#fb7185"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#34d399"/>
+    </marker>
+  </defs>
+
+  <!-- Fondo del panel -->
+  <rect x="2" y="2" width="1116" height="181" rx="14" fill="#0b101b" fill-opacity="0.88" stroke="#fb7185" stroke-opacity="0.28" stroke-width="1.5"/>
+
+  <!-- Título superior discreto -->
+  <text x="20" y="24" fill="#fda4af" font-family="Inter, Segoe UI, sans-serif" font-size="11.5" font-weight="800" letter-spacing="1.2">PIPELINE DE TRADUCCIÓN Y EJECUCIÓN (CRUBY / MRI)</text>
+
+  <!-- Etapa 1: Fuente .rb -->
+  <rect x="18" y="40" width="152" height="106" rx="10" fill="url(#boxGrad)" stroke="#475569" stroke-width="1.4"/>
+  <text x="94" y="62" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700">1. FUENTE .rb</text>
+  <text x="94" y="83" text-anchor="middle" fill="#f8fafc" font-family="Inter, sans-serif" font-size="13.5" font-weight="700">Código Ruby</text>
+  <text x="94" y="104" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono, monospace" font-size="11">puts 2 + 3</text>
+  <text x="94" y="126" text-anchor="middle" fill="#64748b" font-family="Inter, sans-serif" font-size="10.5">Texto UTF-8</text>
+
+  <line x1="170" y1="93" x2="195" y2="93" stroke="#fb7185" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Etapa 2: Lexer -->
+  <rect x="200" y="40" width="156" height="106" rx="10" fill="url(#boxGrad)" stroke="#475569" stroke-width="1.4"/>
+  <text x="278" y="62" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700">2. LEXER (RIPPER)</text>
+  <text x="278" y="83" text-anchor="middle" fill="#f8fafc" font-family="Inter, sans-serif" font-size="13.5" font-weight="700">Tokenización</text>
+  <text x="278" y="104" text-anchor="middle" fill="#fde68a" font-family="JetBrains Mono, monospace" font-size="10.5">[ident, int, op]</text>
+  <text x="278" y="126" text-anchor="middle" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10.5">Identifica sigils y kw</text>
+
+  <line x1="356" y1="93" x2="381" y2="93" stroke="#fb7185" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Etapa 3: Parser / AST -->
+  <rect x="386" y="40" width="156" height="106" rx="10" fill="url(#boxGrad)" stroke="#475569" stroke-width="1.4"/>
+  <text x="464" y="62" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700">3. PARSER (PRISM)</text>
+  <text x="464" y="83" text-anchor="middle" fill="#f8fafc" font-family="Inter, sans-serif" font-size="13.5" font-weight="700">Árbol AST</text>
+  <text x="464" y="104" text-anchor="middle" fill="#cbd5e1" font-family="JetBrains Mono, monospace" font-size="10.5">CallNode(:+)</text>
+  <text x="464" y="126" text-anchor="middle" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10.5">Gramática y precedencia</text>
+
+  <line x1="542" y1="93" x2="567" y2="93" stroke="#fb7185" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Etapa 4: Bytecode Compiler -->
+  <rect x="572" y="40" width="164" height="106" rx="10" fill="url(#boxGrad)" stroke="#fb7185" stroke-opacity="0.55" stroke-width="1.4"/>
+  <text x="654" y="62" text-anchor="middle" fill="#fda4af" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700">4. COMPILADOR</text>
+  <text x="654" y="83" text-anchor="middle" fill="#f8fafc" font-family="Inter, sans-serif" font-size="13.5" font-weight="700">Bytecode YARV</text>
+  <text x="654" y="104" text-anchor="middle" fill="#fda4af" font-family="JetBrains Mono, monospace" font-size="10.5">putobject 2 / opt_plus</text>
+  <text x="654" y="126" text-anchor="middle" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10.5">InstructionSequence</text>
+
+  <line x1="736" y1="93" x2="761" y2="93" stroke="#fb7185" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Etapa 5: YARV VM -->
+  <rect x="766" y="40" width="158" height="106" rx="10" fill="url(#yarvGrad)" stroke="#fb7185" stroke-width="1.6"/>
+  <text x="845" y="62" text-anchor="middle" fill="#fda4af" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">5. MÁQUINA VIRTUAL</text>
+  <text x="845" y="83" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="14" font-weight="800">YARV (Pila)</text>
+  <text x="845" y="104" text-anchor="middle" fill="#ffe4e6" font-family="Inter, sans-serif" font-size="10.5">Ejecuta bytecode</text>
+  <text x="845" y="126" text-anchor="middle" fill="#fecdd3" font-family="Inter, sans-serif" font-size="10.5">GC + GVL (Hilos)</text>
+
+  <line x1="924" y1="93" x2="949" y2="93" stroke="#34d399" stroke-width="2" marker-end="url(#arrowGreen)"/>
+
+  <!-- Etapa 6: YJIT -->
+  <rect x="954" y="40" width="148" height="106" rx="10" fill="url(#yjitGrad)" stroke="#34d399" stroke-width="1.6"/>
+  <text x="1028" y="62" text-anchor="middle" fill="#6ee7b7" font-family="JetBrains Mono, monospace" font-size="11" font-weight="800">6. YJIT (RUST)</text>
+  <text x="1028" y="83" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13.5" font-weight="800">Código Nativo</text>
+  <text x="1028" y="104" text-anchor="middle" fill="#d1fae5" font-family="JetBrains Mono, monospace" font-size="10.5">x86_64 / ARM64</text>
+  <text x="1028" y="126" text-anchor="middle" fill="#a7f3d0" font-family="Inter, sans-serif" font-size="10.5">Rutas calientes (+ZJIT)</text>
+
+  <!-- Pie explicativo -->
+  <text x="560" y="168" text-anchor="middle" fill="#94a3b8" font-family="Inter, sans-serif" font-size="11.5">Ruby compila internamente el AST a bytecode portable antes de ejecutarlo — no interpreta texto línea por línea.</text>
+</svg>

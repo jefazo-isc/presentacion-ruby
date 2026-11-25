@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 230" width="540" height="230">
+  <rect x="2" y="2" width="536" height="226" rx="12" fill="#090e18" stroke="#38bdf8" stroke-opacity="0.3" stroke-width="1.2"/>
+  <text x="16" y="23" fill="#38bdf8" font-family="Inter, sans-serif" font-size="11" font-weight="800" letter-spacing="0.8">ANATOMÍA LÉXICA: SIGILS Y CONVENCIONES SINTÁCTICAS</text>
+
+  <!-- Fila 1: Sigils de ámbito -->
+  <rect x="14" y="34" width="96" height="62" rx="8" fill="#111827" stroke="#334155"/>
+  <text x="62" y="57" text-anchor="middle" fill="#e2e8f0" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700">edad</text>
+  <text x="62" y="75" text-anchor="middle" fill="#38bdf8" font-family="Inter, sans-serif" font-size="10.5" font-weight="700">Local</text>
+  <text x="62" y="89" text-anchor="middle" fill="#64748b" font-family="Inter, sans-serif" font-size="9.5">Método/Bloque</text>
+
+  <rect x="118" y="34" width="96" height="62" rx="8" fill="#111827" stroke="#fb7185" stroke-opacity="0.5"/>
+  <text x="166" y="57" text-anchor="middle" fill="#fda4af" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700">@nombre</text>
+  <text x="166" y="75" text-anchor="middle" fill="#fb7185" font-family="Inter, sans-serif" font-size="10.5" font-weight="700">Instancia</text>
+  <text x="166" y="89" text-anchor="middle" fill="#64748b" font-family="Inter, sans-serif" font-size="9.5">Propia del objeto</text>
+
+  <rect x="222" y="34" width="96" height="62" rx="8" fill="#111827" stroke="#fbbf24" stroke-opacity="0.45"/>
+  <text x="270" y="57" text-anchor="middle" fill="#fde68a" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700">@@total</text>
+  <text x="270" y="75" text-anchor="middle" fill="#fbbf24" font-family="Inter, sans-serif" font-size="10.5" font-weight="700">Clase</text>
+  <text x="270" y="89" text-anchor="middle" fill="#64748b" font-family="Inter, sans-serif" font-size="9.5">Compartida</text>
+
+  <rect x="326" y="34" width="96" height="62" rx="8" fill="#111827" stroke="#a855f7" stroke-opacity="0.5"/>
+  <text x="374" y="57" text-anchor="middle" fill="#d8b4fe" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700">$global</text>
+  <text x="374" y="75" text-anchor="middle" fill="#c084fc" font-family="Inter, sans-serif" font-size="10.5" font-weight="700">Global</text>
+  <text x="374" y="89" text-anchor="middle" fill="#64748b" font-family="Inter, sans-serif" font-size="9.5">Todo el runtime</text>
+
+  <rect x="430" y="34" width="96" height="62" rx="8" fill="#111827" stroke="#34d399" stroke-opacity="0.5"/>
+  <text x="478" y="57" text-anchor="middle" fill="#6ee7b7" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700">PI</text>
+  <text x="478" y="75" text-anchor="middle" fill="#34d399" font-family="Inter, sans-serif" font-size="10.5" font-weight="700">Constante</text>
+  <text x="478" y="89" text-anchor="middle" fill="#64748b" font-family="Inter, sans-serif" font-size="9.5">Inicia Mayús.</text>
+
+  <!-- Fila 2: Convenciones de métodos y operadores -->
+  <rect x="14" y="108" width="164" height="72" rx="8" fill="#161e2e" stroke="#34d399" stroke-opacity="0.4"/>
+  <text x="96" y="130" text-anchor="middle" fill="#6ee7b7" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700">vacio? / nil?</text>
+  <text x="96" y="150" text-anchor="middle" fill="#f8fafc" font-family="Inter, sans-serif" font-size="11" font-weight="700">Sufijo ? (Predicado)</text>
+  <text x="96" y="166" text-anchor="middle" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10">Siempre retorna booleano</text>
+
+  <rect x="188" y="108" width="164" height="72" rx="8" fill="#161e2e" stroke="#fb7185" stroke-opacity="0.45"/>
+  <text x="270" y="130" text-anchor="middle" fill="#fda4af" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700">sort! / upcase!</text>
+  <text x="270" y="150" text-anchor="middle" fill="#f8fafc" font-family="Inter, sans-serif" font-size="11" font-weight="700">Sufijo ! (Mutación)</text>
+  <text x="270" y="166" text-anchor="middle" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10">Modifica el objeto in-place</text>
+
+  <rect x="362" y="108" width="164" height="72" rx="8" fill="#161e2e" stroke="#fbbf24" stroke-opacity="0.45"/>
+  <text x="444" y="130" text-anchor="middle" fill="#fde68a" font-family="JetBrains Mono, monospace" font-size="14" font-weight="700">a &lt;=&gt; b</text>
+  <text x="444" y="150" text-anchor="middle" fill="#f8fafc" font-family="Inter, sans-serif" font-size="11" font-weight="700">Nave Espacial (3 vías)</text>
+  <text x="444" y="166" text-anchor="middle" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10">Retorna -1, 0, 1 o nil</text>
+
+  <text x="270" y="206" text-anchor="middle" fill="#94a3b8" font-family="Inter, sans-serif" font-size="10.5">El Lexer determina el alcance por el prefijo léxico sin palabras reservadas como var, let o private.</text>
+</svg>
