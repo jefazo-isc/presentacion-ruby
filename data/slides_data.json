@@ -89,7 +89,9 @@
     "alumno": "1 · Américo Calzada · Bloque 1",
     "header": "Presentación del Bloque 1",
     "ppt_lines": [],
-    "dialogos": [],
+    "dialogos": [
+      "Comenzamos con el primer bloque de nuestra exposición: qué es técnicamente Ruby y por qué todo valor en él es un objeto, su origen con Yukihiro Matsumoto hasta Ruby 4.0, y las influencias de cinco lenguajes que definieron su diseño."
+    ],
     "code": null,
     "table": null,
     "topics": [
@@ -199,7 +201,9 @@
     "alumno": "2 · Eduardo Tapia · Bloque 2",
     "header": "Presentación del Bloque 2",
     "ppt_lines": [],
-    "dialogos": [],
+    "dialogos": [
+      "Muchas gracias, Américo. En este segundo bloque analizaremos la filosofía de Ruby centrada en el Principio de Menor Sorpresa, la ruta completa de compilación y ejecución desde el código fuente hasta bytecode en YARV y código nativo con YJIT, y su comparativa arquitectónica frente a Python y Java."
+    ],
     "code": null,
     "table": null,
     "topics": [
@@ -331,7 +335,9 @@
     "alumno": "3 · Luis García · Bloque 3",
     "header": "Presentación del Bloque 3",
     "ppt_lines": [],
-    "dialogos": [],
+    "dialogos": [
+      "Gracias, Eduardo. Entramos al tercer bloque para revisar la anatomía sintáctica de Ruby: el uso de sigils para definir alcances, el tipado dinámico fuerte, el operador nave espacial, la diferencia entre símbolos y cadenas, y un ejemplo completo de entrada y salida estándar."
+    ],
     "code": null,
     "table": null,
     "topics": [
@@ -440,7 +446,7 @@
     "default_stdin": "Yahir\n21\n",
     "table": null,
     "expected_output": {
-      "stdout": "¿Cómo te llamas? ¿Edad? Hola, Yahir.\nEl próximo año tendrás 22.\nPromedio: 9.00\n",
+      "stdout": "¿Cómo te llamas? ¿Edad? Hola, Yahir. Tendrás 22.\nProm: 9.00\n",
       "stderr": "",
       "ms": 77.47,
       "ruby_version": "3.3.13"
@@ -453,7 +459,9 @@
     "alumno": "4 · Alberto Vázquez · Bloque 4",
     "header": "Presentación del Bloque 4",
     "ppt_lines": [],
-    "dialogos": [],
+    "dialogos": [
+      "Muchas gracias, Luis. En el cuarto bloque veremos cómo en Ruby las estructuras de control son expresiones que devuelven valores, cómo operan los métodos y bloques con yield, y cómo se implementa la programación orientada a objetos pura con clases, herencia simple y encapsulamiento."
+    ],
     "code": null,
     "table": null,
     "topics": [
@@ -574,7 +582,7 @@
     "default_stdin": "",
     "table": null,
     "expected_output": {
-      "stdout": "Soy Ana, tengo 20 años\n",
+      "stdout": "Soy Ana, 20 años\n",
       "stderr": "",
       "ms": 89.02,
       "ruby_version": "3.3.13"
@@ -614,7 +622,7 @@
     "default_stdin": "",
     "table": null,
     "expected_output": {
-      "stdout": "Soy Luis, tengo 21 años y estudio ISC\n",
+      "stdout": "Soy Luis, 21 años (ISC)\n",
       "stderr": "",
       "ms": 107.3,
       "ruby_version": "3.3.13"
@@ -627,7 +635,9 @@
     "alumno": "5 · Ricardo Padilla · Bloque 5",
     "header": "Presentación del Bloque 5",
     "ppt_lines": [],
-    "dialogos": [],
+    "dialogos": [
+      "Gracias, Alberto. En este quinto bloque distinguiremos con precisión el lenguaje Ruby de RubyGems, Bundler y el framework Ruby on Rails con su arquitectura MVC, además de revisar casos reales en producción y un script en vivo de automatización de archivos."
+    ],
     "code": null,
     "table": null,
     "topics": [
@@ -714,7 +724,7 @@
     "default_stdin": "",
     "table": null,
     "expected_output": {
-      "stdout": "Respaldado -> backup/datos.txt\nRespaldado -> backup/notas.txt\n",
+      "stdout": "OK: a.txt\nOK: b.txt\n",
       "stderr": "",
       "ms": 151.63,
       "ruby_version": "3.3.13"
@@ -727,7 +737,9 @@
     "alumno": "6 · Yahir Guevara · Bloque 6",
     "header": "Presentación del Bloque 6",
     "ppt_lines": [],
-    "dialogos": [],
+    "dialogos": [
+      "Muchas gracias, Ricardo. Cerramos la exposición con el sexto bloque: una evaluación crítica de las ventajas y límites de Ruby frente al GVL y YJIT, la comparativa práctica con Python y Java, su vigencia en Ruby 4.0 y nuestras conclusiones finales."
+    ],
     "code": null,
     "table": null,
     "topics": [
