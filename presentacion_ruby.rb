@@ -5,8 +5,8 @@
 #  Presentación Académica 16:9 en Tiempo Real — Programada en Ruby
 #  - Lienzo fijo 1280x720 (16:9 exacto), cero scrollbars, cero botones
 #  - Único input: flechas ← y →
-#  - Imágenes reales PNG (ruby.png del kit, matz.png, rubygems.png, Ruby-on-Rails-Logo.png)
-#  - Layouts variados (línea de tiempo, pipeline, tarjetas, tablas, consola en vivo)
+#  - Imágenes reales PNG y diagramas SVG en assets/img/ + fondo geométrico
+#  - Layouts variados (línea de tiempo, pipeline YARV, tarjetas, tablas, consola)
 # ==============================================================================
 
 require "webrick"
@@ -19,12 +19,13 @@ PORT = (ENV["PORT"] || 4567).to_i
 DATA_FILE = File.join(__dir__, "data", "slides_data.json")
 SLIDES = JSON.parse(File.read(DATA_FILE, encoding: "UTF-8"))
 
-IMG_DIR = File.join(__dir__, "assets", "img")
-ALLOWED_IMAGES = {
-  "ruby.png" => File.join(IMG_DIR, "ruby.png"),
-  "matz.png" => File.join(IMG_DIR, "matz.png"),
-  "rubygems.png" => File.join(IMG_DIR, "rubygems.png"),
-  "Ruby-on-Rails-Logo.png" => File.join(IMG_DIR, "Ruby-on-Rails-Logo.png")
+IMG_DIR = File.expand_path(File.join(__dir__, "assets", "img"))
+MIME_TYPES = {
+  ".png"  => "image/png",
+  ".svg"  => "image/svg+xml",
+  ".jpg"  => "image/jpeg",
+  ".jpeg" => "image/jpeg",
+  ".webp" => "image/webp"
 }.freeze
 
 HTML_PAGE = <<~'HTML'
@@ -34,6 +35,7 @@ HTML_PAGE = <<~'HTML'
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ruby · Presentación</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><polygon points='32,6 58,22 48,56 16,56 6,22' fill='%23e11d48'/></svg>" />
     <style>
       :root {
         --ruby: #e11d48;
@@ -74,6 +76,17 @@ HTML_PAGE = <<~'HTML'
         box-shadow: 0 28px 90px rgba(0, 0, 0, 0.85);
         transform-origin: center center;
         flex-shrink: 0;
+      }
+
+      .bg-facets {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.92;
       }
 
       .aurora {
@@ -161,9 +174,13 @@ HTML_PAGE = <<~'HTML'
         border: 1px solid rgba(255, 77, 109, 0.45);
         padding: 4px 14px;
         border-radius: 999px;
-        font-size: 13px;
+        font-size: 12.5px;
         font-weight: 700;
-        letter-spacing: 0.7px;
+        letter-spacing: 0.6px;
+        white-space: nowrap;
+        max-width: 920px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .slide-num {
         color: var(--muted);
@@ -565,6 +582,29 @@ HTML_PAGE = <<~'HTML'
       .str { color: #fde68a; }
       .cmt { color: #64748b; font-style: italic; }
       .num { color: #38bdf8; }
+      .sym { color: #a78bfa; font-weight: 600; }
+      .sigil { color: #34d399; font-weight: 600; }
+      .const-tok { color: #7dd3fc; }
+
+      .inline-diagram {
+        width: 100%;
+        object-fit: contain;
+        border-radius: 10px;
+        flex-shrink: 0;
+      }
+      .slide-body.with-table-media {
+        grid-template-columns: 1.32fr 0.78fr;
+      }
+      .ruby-watermark {
+        position: absolute;
+        right: -40px;
+        bottom: -40px;
+        width: 340px;
+        height: 340px;
+        opacity: 0.06;
+        pointer-events: none;
+        filter: drop-shadow(0 0 40px rgba(225, 29, 72, 0.4));
+      }
 
       pre.console-out {
         margin: 10px 0 0;
@@ -660,6 +700,7 @@ HTML_PAGE = <<~'HTML'
   </head>
   <body>
     <div id="slideFrame">
+      <img src="assets/img/bg_facets.svg" class="bg-facets" alt="" />
       <div class="aurora"></div>
       <canvas id="particles" width="1280" height="720"></canvas>
       <div id="slideContent" class="slide-content"></div>
@@ -754,17 +795,30 @@ HTML_PAGE = <<~'HTML'
       }
 
       function highlightRubyLine(line) {
-        let html = escapeHtml(line);
-        const cmtIdx = html.indexOf('#');
-        let cmt = '';
-        if (cmtIdx !== -1 && !html.slice(0, cmtIdx).includes('#{')) {
-          cmt = `<span class="cmt">${html.slice(cmtIdx)}</span>`;
-          html = html.slice(0, cmtIdx);
+        const tokenRe = /(#[^\n]*)|("[^"]*"|'[^']*')|(@@?[a-zA-Z_]\w*|\$[a-zA-Z_]\w*|:[a-zA-Z_]\w*[?!]?)|(\b(?:class|def|end|if|elsif|else|unless|while|for|in|do|puts|print|format|require|super|private|protected|public|attr_reader|attr_accessor|yield|return|include|block_given\?|true|false|nil)\b)|(\b[A-Z][A-Za-z0-9_]*\b)|(\b\d+(?:\.\d+)?\b)|(<=>|<<|&\.)/g;
+        let out = '';
+        let last = 0;
+        for (const m of line.matchAll(tokenRe)) {
+          if (m.index > last) out += escapeHtml(line.slice(last, m.index));
+          const tok = m[0];
+          if (m[1]) {
+            out += `<span class="cmt">${escapeHtml(tok)}</span>`;
+          } else if (m[2]) {
+            out += `<span class="str">${escapeHtml(tok)}</span>`;
+          } else if (m[3]) {
+            const cls = tok.startsWith(':') ? 'sym' : 'sigil';
+            out += `<span class="${cls}">${escapeHtml(tok)}</span>`;
+          } else if (m[4] || m[7]) {
+            out += `<span class="kw">${escapeHtml(tok)}</span>`;
+          } else if (m[5]) {
+            out += `<span class="const-tok">${escapeHtml(tok)}</span>`;
+          } else if (m[6]) {
+            out += `<span class="num">${escapeHtml(tok)}</span>`;
+          }
+          last = m.index + tok.length;
         }
-        html = html.replace(/(&quot;|")([^"]*?)(\1)/g, '<span class="str">"$2"</span>');
-        html = html.replace(/\b(class|def|end|if|elsif|else|unless|while|for|in|do|puts|print|require|super|private|attr_reader|yield|true|false|nil)\b/g, '<span class="kw">$1</span>');
-        html = html.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="num">$1</span>');
-        return html + cmt;
+        if (last < line.length) out += escapeHtml(line.slice(last));
+        return out;
       }
 
       // Mantiene tamaños de letra fijos y hace scroll lento automático si algo no cabe
@@ -825,6 +879,31 @@ HTML_PAGE = <<~'HTML'
         return CODE_FILENAMES[slideNum] || `ejemplo_${slideNum}.rb`;
       }
 
+      let hasLocalApi = !(
+        location.protocol === 'file:' ||
+        location.hostname.endsWith('github.io') ||
+        location.hostname.endsWith('pages.dev')
+      );
+
+      function preloadAssets() {
+        const urls = [
+          'assets/img/ruby.png',
+          'assets/img/matz.png',
+          'assets/img/rubygems.png',
+          'assets/img/Ruby-on-Rails-Logo.png',
+          'assets/img/yarv_pipeline.svg',
+          'assets/img/type_quadrant.svg',
+          'assets/img/syntax_sigils.svg',
+          'assets/img/object_hierarchy.svg',
+          'assets/img/companies_logos.svg',
+          'assets/img/influences_map.svg',
+          'assets/img/java_icon.svg',
+          'assets/img/python_icon.svg'
+        ];
+        urls.forEach(u => { const img = new Image(); img.src = u; });
+      }
+      setTimeout(preloadAssets, 350);
+
       async function autoRunSlideCode(s, token) {
         const outEl = document.getElementById('consoleOut');
         const dotEl = document.getElementById('liveDot');
@@ -832,14 +911,22 @@ HTML_PAGE = <<~'HTML'
         if (!outEl) return;
 
         let data = null;
-        try {
-          const res = await fetch('api/run', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code: s.code, stdin: s.default_stdin || '' })
-          });
-          if (res.ok) data = await res.json();
-        } catch (_e) {}
+        if (hasLocalApi) {
+          try {
+            const res = await fetch('api/run', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ code: s.code, stdin: s.default_stdin || '' })
+            });
+            if (res.ok) {
+              data = await res.json();
+            } else {
+              hasLocalApi = false;
+            }
+          } catch (_e) {
+            hasLocalApi = false;
+          }
+        }
         if (!data && s.expected_output) data = s.expected_output;
         if (!data) data = { stdout: '', stderr: 'Sin intérprete local', ms: 0 };
         if (token !== runToken) return;
@@ -877,6 +964,24 @@ HTML_PAGE = <<~'HTML'
 
       // Layouts especiales para que las diapositivas sean visualmente variadas
       function renderSpecialBody(s, rawPoints, pointsHtml) {
+        if (s.slide === 2) {
+          // 4 objetivos en tarjetas 2x2
+          const cards = [];
+          for (let i = 0; i < rawPoints.length; i += 2) {
+            cards.push([rawPoints[i], rawPoints[i+1] || '']);
+          }
+          return `
+            <div class="cards-grid-2">
+              ${cards.map((c, idx) => `
+                <div class="feature-card" style="animation-delay:${idx * 65}ms;justify-content:flex-start;gap:10px;">
+                  <span class="feature-num">Objetivo 0${idx + 1}</span>
+                  <div class="feature-title" style="font-size:21px;color:#fff;">${escapeHtml(c[0].replace(/^\d+\s*·\s*/, ''))}</div>
+                  <div class="feature-desc" style="font-size:16px;line-height:1.45;">${escapeHtml(c[1])}</div>
+                </div>
+              `).join('')}
+            </div>
+          `;
+        }
         if (s.slide === 3) {
           // 6 tarjetas de expositores
           const blocks = [];
@@ -903,6 +1008,9 @@ HTML_PAGE = <<~'HTML'
             if (/^\d{4}$/.test(rawPoints[i]) && rawPoints[i+1]) {
               pairs.push([rawPoints[i], rawPoints[i+1]]);
               i++;
+            } else if (rawPoints[i] === 'Meta “Ruby 3x3”' && rawPoints[i+1]) {
+              pairs.push(['RUBY 3x3', rawPoints[i+1]]);
+              i++;
             } else {
               pairs.push(['META', rawPoints[i]]);
             }
@@ -912,41 +1020,52 @@ HTML_PAGE = <<~'HTML'
               ${pairs.map((p, idx) => `
                 <div class="tl-card" style="animation-delay:${idx * 65}ms">
                   <span class="tl-year">${escapeHtml(p[0])}</span>
-                  <div class="tl-text">${escapeHtml(p[1])}</div>
+                  <div class="tl-text" style="font-size:14.5px;">${escapeHtml(p[1])}</div>
                 </div>
               `).join('')}
             </div>
           `;
         }
-        if (s.slide === 8) {
-          const stages = [
-            ['1. Código fuente (.rb)', 'Alto nivel: abstrae hardware y punteros'],
-            ['2. Lexer & Parser', 'Tokenización y Árbol Sintáctico (AST / Prism)'],
-            ['3. Bytecode YARV', 'Compilado a instrucciones para VM de pila'],
-            ['4. Ejecución + YJIT', 'Interpreta bytecode o compila a código nativo']
-          ];
-          const cards = [
-            ['Alto nivel de abstracción', 'Prioriza expresividad y legibilidad; sin manejo manual de punteros.'],
-            ['Tipado dinámico', 'El tipo pertenece al valor en ejecución: x = 1 y luego x = "a" es válido.'],
-            ['Todo es objeto', 'Enteros, textos, nil y clases responden a métodos.'],
-            ['Memoria automática (GC)', 'Recolector de basura incremental (Mark & Sweep / Tri-color).']
-          ];
+        if (s.slide === 6) {
+          const designItems = rawPoints.slice(1, 4);
+          const impactItems = rawPoints.slice(5, 8);
           return `
-            <div style="display:flex;flex-direction:column;height:100%;gap:14px;">
-              <div class="flow-row" style="margin-bottom:0;">
-                ${stages.map((st, idx) => `
-                  <div class="flow-step" style="animation-delay:${idx * 70}ms;text-align:left;padding:12px 14px;">
-                    <div style="color:#fda4af;font-size:14px;font-weight:800;margin-bottom:4px;">${st[0]}</div>
-                    <div style="font-size:13px;font-weight:400;color:#e2e8f0;line-height:1.35;">${st[1]}</div>
-                  </div>
-                  ${idx < stages.length - 1 ? '<span class="flow-arrow">→</span>' : ''}
-                `).join('')}
+            <div class="slide-body with-media" style="height:100%;grid-template-columns:1.12fr 0.88fr;">
+              <div style="display:flex;flex-direction:column;gap:14px;min-height:0;">
+                <div class="feature-card" style="flex:1;justify-content:flex-start;border-top-color:#38bdf8;">
+                  <span class="feature-num" style="color:#7dd3fc;">${escapeHtml(rawPoints[0] || 'Objetivos de diseño')}</span>
+                  <ul class="points-list" style="gap:8px;margin-top:4px;">
+                    ${designItems.map((it, i) => `<li style="animation-delay:${i * 50}ms;font-size:16px;padding:8px 12px;border-left-color:#38bdf8;">${escapeHtml(it)}</li>`).join('')}
+                  </ul>
+                </div>
+                <div class="feature-card" style="flex:1;justify-content:flex-start;">
+                  <span class="feature-num">${escapeHtml(rawPoints[4] || 'Importancia en la industria')}</span>
+                  <ul class="points-list" style="gap:8px;margin-top:4px;">
+                    ${impactItems.map((it, i) => `<li style="animation-delay:${(i + 3) * 50}ms;font-size:16px;padding:8px 12px;">${escapeHtml(it)}</li>`).join('')}
+                  </ul>
+                </div>
               </div>
-              <div class="cards-grid-2" style="flex:1;">
+              <div class="media-card" style="padding:14px;">
+                <img src="assets/img/influences_map.svg" class="inline-diagram" style="max-height:420px;" alt="Influencias de Ruby" />
+                <div class="media-caption">Síntesis de 5 paradigmas e ideas</div>
+                <div class="media-sub">Smalltalk + Perl + Eiffel + Ada + Lisp</div>
+              </div>
+            </div>
+          `;
+        }
+        if (s.slide === 8) {
+          const cards = [];
+          for (let i = 0; i < rawPoints.length; i += 2) {
+            cards.push([rawPoints[i], rawPoints[i+1] || '']);
+          }
+          return `
+            <div style="display:flex;flex-direction:column;height:100%;gap:14px;min-height:0;">
+              <img src="assets/img/yarv_pipeline.svg" class="inline-diagram" style="max-height:190px;background:rgba(11,16,27,0.7);" alt="Pipeline YARV" />
+              <div class="cards-grid-2" style="flex:1;min-height:0;">
                 ${cards.map((c, idx) => `
-                  <div class="feature-card" style="animation-delay:${(idx + 4) * 55}ms">
-                    <div class="feature-title" style="font-size:18px;">${c[0]}</div>
-                    <div class="feature-desc" style="font-size:15px;">${c[1]}</div>
+                  <div class="feature-card" style="animation-delay:${(idx + 2) * 55}ms;padding:14px 18px;">
+                    <div class="feature-title" style="font-size:18px;color:#fda4af;">${escapeHtml(c[0])}</div>
+                    <div class="feature-desc" style="font-size:15px;">${escapeHtml(c[1])}</div>
                   </div>
                 `).join('')}
               </div>
@@ -961,18 +1080,18 @@ HTML_PAGE = <<~'HTML'
               'Ecosistema de gems maduro y comunidad activa.'
             ]],
             ['Límites y Rendimiento', '#fbbf24', [
-              'Menor velocidad pura frente a lenguajes compilados estáticos.',
+              'Menor velocidad bruta frente a C++, Rust o Go.',
               'El GVL limita el paralelismo CPU-bound en hilos tradicionales.',
-              'YJIT (y ZJIT experimental en 4.0) aceleran rutas calientes.'
+              'YJIT (Rust) y ZJIT experimental (Ruby 4.0) aceleran rutas calientes.'
             ]],
             ['✅ Cuándo SÍ usarlo', '#38bdf8', [
-              'Aplicaciones web rápidas, APIs y MVPs con Ruby on Rails.',
-              'Scripts de automatización, DevOps y herramientas CLI.',
-              'Prototipado ágil donde importa la velocidad de desarrollo.'
+              'Aplicaciones web rápidas, APIs REST/GraphQL y MVPs con Rails.',
+              'Scripts de automatización, DevOps, DSLs y herramientas CLI.',
+              'Sistemas I/O-bound donde la productividad del equipo es clave.'
             ]],
             ['⛔ Cuándo NO usarlo', '#fb7185', [
-              'Ciencia de datos, Machine Learning o IA (menor ecosistema).',
-              'Cómputo paralelo intensivo en CPU o videojuegos 3D.',
+              'Ciencia de datos, Machine Learning o entrenamiento de IA.',
+              'Cómputo paralelo intensivo en CPU o motores 3D.',
               'Sistemas embebidos o tiempo real estricto con memoria mínima.'
             ]]
           ];
@@ -1010,24 +1129,49 @@ HTML_PAGE = <<~'HTML'
           `;
         }
         if (s.slide === 18) {
-          // Rails MVC pipeline + logo oficial
+          // Rails MVC pipeline + terminal CLI + logo oficial
           const steps = rawPoints.slice(0, 5);
-          const rest = rawPoints.slice(5).map((l, i) => `<li style="animation-delay:${i * 45}ms">${escapeHtml(l)}</li>`).join('');
+          const cliCmds = rawPoints.slice(5, 10).map(l => `$ ${l}`).join('\n');
+          const rest = rawPoints.slice(10).map((l, i) => `<li style="animation-delay:${i * 45}ms;font-size:16px;padding:8px 12px;">${escapeHtml(l)}</li>`).join('');
           return `
-            <div style="display:flex;flex-direction:column;height:100%;">
+            <div style="display:flex;flex-direction:column;height:100%;min-height:0;">
               <div class="flow-row">
                 ${steps.map((st, idx) => `
                   <div class="flow-step" style="animation-delay:${idx * 70}ms">${escapeHtml(st)}</div>
                   ${idx < steps.length - 1 ? '<span class="flow-arrow">→</span>' : ''}
                 `).join('')}
               </div>
-              <div class="slide-body with-media" style="flex:1;">
-                <div class="points-card"><ul class="points-list">${rest}</ul></div>
+              <div class="slide-body with-media" style="flex:1;min-height:0;">
+                <div class="points-card" style="gap:12px;justify-content:space-between;">
+                  <pre style="margin:0;background:#06090e;border:1px solid rgba(52,211,153,0.3);border-left:4px solid #34d399;border-radius:10px;padding:11px 14px;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.45;color:#a7f3d0;">${escapeHtml(cliCmds)}</pre>
+                  <ul class="points-list" style="gap:8px;">${rest}</ul>
+                </div>
                 <div class="media-card">
                   <img src="assets/img/Ruby-on-Rails-Logo.png" class="logo-transparent" alt="Ruby on Rails" />
                   <div class="media-caption">Arquitectura MVC</div>
                   <div class="media-sub">Convención sobre configuración</div>
                 </div>
+              </div>
+            </div>
+          `;
+        }
+        if (s.slide === 22) {
+          const installItems = rawPoints.slice(1, 4).map((l, i) => `<li style="animation-delay:${i * 50}ms;font-size:16px;padding:9px 12px;border-left-color:#38bdf8;">${escapeHtml(l)}</li>`).join('');
+          const cliBox = rawPoints.slice(4, 7).map(l => `$ ${l}`).join('\n');
+          const lifeItems = rawPoints.slice(9).map((l, i) => `<li style="animation-delay:${(i + 3) * 50}ms;font-size:16px;padding:9px 12px;">${escapeHtml(l)}</li>`).join('');
+          return `
+            <div class="cards-grid-2">
+              <div class="feature-card" style="border-top-color:#38bdf8;justify-content:space-between;gap:12px;">
+                <span class="feature-num" style="color:#7dd3fc;">${escapeHtml(rawPoints[0] || 'Instalación')}</span>
+                <ul class="points-list" style="gap:8px;">${installItems}</ul>
+                <pre style="margin:0;background:#06090e;border:1px solid rgba(56,189,248,0.35);border-radius:10px;padding:12px 14px;font-family:'JetBrains Mono',monospace;font-size:15px;line-height:1.5;color:#7dd3fc;">${escapeHtml(cliBox)}</pre>
+              </div>
+              <div class="feature-card" style="justify-content:space-between;gap:12px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;">
+                  <span class="feature-num">${escapeHtml(rawPoints[7] || 'Vigencia actual')}</span>
+                  <span style="background:linear-gradient(135deg,#e11d48,#9f1239);color:#fff;font-weight:900;font-size:32px;padding:6px 20px;border-radius:14px;box-shadow:0 0 24px rgba(225,29,72,0.5);">Ruby ${escapeHtml(rawPoints[8] || '4.0')}</span>
+                </div>
+                <ul class="points-list" style="gap:9px;margin-top:4px;">${lifeItems}</ul>
               </div>
             </div>
           `;
@@ -1082,7 +1226,8 @@ HTML_PAGE = <<~'HTML'
             </div>
           `).join('');
           container.innerHTML = `
-            <div class="slide-enter" style="display:flex;flex-direction:column;height:100%;justify-content:center;gap:26px;">
+            <div class="slide-enter" style="position:relative;display:flex;flex-direction:column;height:100%;justify-content:center;gap:26px;">
+              <img src="assets/img/ruby.png" class="ruby-watermark" alt="" />
               <div class="slide-top" style="position:absolute;top:0;left:0;right:0;">
                 <div class="top-left">
                   <img src="assets/img/ruby.png" class="mini-logo" alt="Ruby" />
@@ -1104,8 +1249,7 @@ HTML_PAGE = <<~'HTML'
           return;
         }
 
-        const alumnoMatch = s.alumno.match(/Alumno \d+/i);
-        const badgeText = alumnoMatch ? alumnoMatch[0].toUpperCase() : 'CIERRE';
+        const badgeText = (s.alumno || 'RUBY').toUpperCase();
 
         const hasCode = Boolean(s.code);
         const hasTable = Boolean(s.table);
@@ -1125,20 +1269,21 @@ HTML_PAGE = <<~'HTML'
           .map((line, i) => `<li style="animation-delay:${i * 40}ms">${escapeHtml(line)}</li>`)
           .join('');
 
+        const tableIcons = { 1: 'assets/img/ruby.png', 2: 'assets/img/python_icon.svg', 3: 'assets/img/java_icon.svg' };
         const tableHtml = hasTable ? `
           <div class="table-card">
-            <table class="comp-table">
+            <table class="comp-table" style="${s.slide === 9 ? 'font-size:15px;' : ''}">
               <thead>
                 <tr>${s.table.headers.map((h, ci) => `
-                  <th class="${ci === 1 ? 'ruby-col' : ''}">
-                    ${ci === 1 ? `<div class="th-flex"><img src="assets/img/ruby.png" class="th-icon" alt="Ruby"/><span>${escapeHtml(h)}</span></div>` : escapeHtml(h)}
+                  <th class="${ci === 1 ? 'ruby-col' : ''}" style="${s.slide === 9 ? 'padding:10px 12px;font-size:16px;' : ''}">
+                    ${tableIcons[ci] ? `<div class="th-flex"><img src="${tableIcons[ci]}" class="th-icon" alt="${escapeHtml(h)}"/><span>${escapeHtml(h)}</span></div>` : escapeHtml(h)}
                   </th>
                 `).join('')}</tr>
               </thead>
               <tbody>
                 ${s.table.rows.map((r, ri) => `
                   <tr style="animation-delay:${ri * 80}ms">
-                    ${r.map((cell, ci) => `<td class="${ci === 1 ? 'ruby-col' : ''}">${escapeHtml(cell)}</td>`).join('')}
+                    ${r.map((cell, ci) => `<td class="${ci === 1 ? 'ruby-col' : ''}" style="${s.slide === 9 ? 'padding:10px 12px;' : ''}">${escapeHtml(cell)}</td>`).join('')}
                   </tr>
                 `).join('')}
               </tbody>
@@ -1157,7 +1302,6 @@ HTML_PAGE = <<~'HTML'
         const isIntro = (s.slide === 1 && animateFromIntro);
         const specialBody = renderSpecialBody(s, rawPoints, points);
 
-        // En Slide 4 incluimos la foto de Matz en la parte izquierda junto a sus viñetas
         const matzHeader = (s.slide === 4) ? `
           <div style="display:flex;align-items:center;gap:14px;margin-bottom:12px;padding:10px;background:rgba(225,29,72,0.10);border:1px solid rgba(255,77,109,0.3);border-radius:12px;">
             <img src="assets/img/matz.png" style="width:68px;height:68px;border-radius:50%;object-fit:cover;border:2px solid #ff4d6d;" alt="Matz" />
@@ -1167,6 +1311,36 @@ HTML_PAGE = <<~'HTML'
             </div>
           </div>
         ` : '';
+
+        const leftTopMedia = (s.slide === 10)
+          ? `<img src="assets/img/syntax_sigils.svg" class="inline-diagram" style="max-height:218px;margin-bottom:10px;" alt="Anatomía de Sintaxis" />`
+          : (s.slide === 12)
+          ? `<div class="flow-row" style="margin-bottom:12px;">
+               <div class="flow-step" style="padding:8px;">1. Entrada<br/><span style="font-size:11.5px;color:#fda4af;font-weight:500;">gets + .chomp</span></div>
+               <span class="flow-arrow">→</span>
+               <div class="flow-step" style="padding:8px;">2. Proceso<br/><span style="font-size:11.5px;color:#7dd3fc;font-weight:500;">.to_i / cálculo</span></div>
+               <span class="flow-arrow">→</span>
+               <div class="flow-step" style="padding:8px;">3. Salida<br/><span style="font-size:11.5px;color:#6ee7b7;font-weight:500;">puts / format</span></div>
+             </div>`
+          : (s.slide === 19)
+          ? `<img src="assets/img/companies_logos.svg" class="inline-diagram" style="max-height:310px;margin-bottom:10px;" alt="Empresas usando Ruby" />`
+          : '';
+
+        const leftBottomMedia = (s.slide === 15)
+          ? `<img src="assets/img/object_hierarchy.svg" class="inline-diagram" style="max-height:225px;margin-top:auto;" alt="Jerarquía de objetos Ruby" />`
+          : '';
+
+        const slide9Media = (s.slide === 9) ? `
+          <div class="media-card" style="padding:12px;">
+            <img src="assets/img/type_quadrant.svg" class="inline-diagram" style="max-height:390px;" alt="Cuadrante de Tipos" />
+            <div class="media-caption">Dinámico pero Fuerte</div>
+            <div class="media-sub">No realiza coerciones implícitas inseguras</div>
+          </div>
+        ` : '';
+
+        const bodyClass = s.slide === 9
+          ? 'with-table-media'
+          : ((hasCode && hasPoints) ? 'with-code' : '');
 
         container.innerHTML = `
           <div class="slide-enter" style="display:flex;flex-direction:column;height:100%;min-height:0;">
@@ -1184,11 +1358,13 @@ HTML_PAGE = <<~'HTML'
             </div>
 
             ${specialBody ? `<div style="flex:1;min-height:0;display:flex;flex-direction:column;">${specialBody}</div>` : `
-              <div class="slide-body ${(hasCode && hasPoints) ? 'with-code' : ''} ${isIntro ? 'intro-reveal' : ''}">
-                ${hasTable ? tableHtml : (hasPoints ? `
-                  <div class="points-card">
+              <div class="slide-body ${bodyClass} ${isIntro ? 'intro-reveal' : ''}">
+                ${hasTable ? `${tableHtml}${slide9Media}` : (hasPoints ? `
+                  <div class="points-card" style="gap:10px;">
                     ${matzHeader}
-                    <ul class="points-list ${useTwoCols ? 'two-cols' : ''}">${points}</ul>
+                    ${leftTopMedia}
+                    <ul class="points-list ${useTwoCols ? 'two-cols' : ''}" style="${(s.slide === 10 || s.slide === 15 || s.slide === 19) ? 'gap:8px;' : ''}">${points}</ul>
+                    ${leftBottomMedia}
                   </div>
                 ` : '')}
                 ${hasCode ? `
@@ -1245,9 +1421,11 @@ server.mount_proc "/data/slides_data.json", &slides_proc
 
 img_proc = proc do |req, res|
   name = File.basename(req.path)
-  path = ALLOWED_IMAGES[name]
-  if path && File.exist?(path)
-    res.content_type = "image/png"
+  ext = File.extname(name).downcase
+  mime = MIME_TYPES[ext]
+  path = File.expand_path(File.join(IMG_DIR, name))
+  if mime && path.start_with?(IMG_DIR + File::SEPARATOR) && File.file?(path)
+    res.content_type = mime
     res.body = File.binread(path)
   else
     res.status = 404
